@@ -16,24 +16,31 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
     @IBOutlet weak var noteTitle: UITextField!
     @IBOutlet weak var noteDescription: UITextView!
     var locationString = ""
+    var noteData: Note? = nil
+    var noteIndex: Int? = nil
+    //@property Note *noteData;
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        self.locationManager.requestAlwaysAuthorization()
-
-        // For use in foreground
-        self.locationManager.requestWhenInUseAuthorization()
-
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.requestLocation()
-        }
-        
         noteDescription.delegate = self
-        noteDescription.text = "Take a note..."
-        noteDescription.textColor = UIColor.lightGray
+        if(noteData != nil){
+            noteTitle.text = noteData?.noteTitle
+            noteDescription.text = noteData?.noteDescription
+        }
+        else{
+            self.locationManager.requestAlwaysAuthorization()
+
+            // For use in foreground
+            self.locationManager.requestWhenInUseAuthorization()
+
+            if CLLocationManager.locationServicesEnabled() {
+                locationManager.delegate = self
+                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                locationManager.requestLocation()
+            }
+            noteDescription.text = "Take a note..."
+            noteDescription.textColor = UIColor.lightGray
+        }
     }
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
@@ -50,6 +57,29 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
     
 
     @IBAction func noteSave(_ sender: UIBarButtonItem) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
+        fetchRequest.predicate = NSPredicate(format: "noteID = %@", noteData?.noteID! as! CVarArg)
+
+        do{
+            let fetchResults = try PersistanceService.context.fetch(fetchRequest)
+                if fetchResults.count != 0{
+
+                    let managedObject: Note = fetchResults[0] as! Note
+                    noteData?.noteTitle = noteTitle.text!
+                    noteData?.noteDescription = noteDescription.text!
+                    managedObject.setValue(noteTitle.text!, forKey: "noteTitle")
+                    managedObject.setValue(noteDescription.text!, forKey: "noteDescription")
+
+                    try PersistanceService.context.save()
+                    let notificationPayload = ["data": noteData!, "index": noteIndex!] as [String : Any]
+                    NotificationCenter.default.post(name: NotificationConstants.noteUpdated, object: self, userInfo: notificationPayload)
+                    navigationController?.popViewController(animated: true)
+                }
+            
+        } catch{
+            
+        }
+        
     }
     @IBAction func noteDone(_ sender: UIBarButtonItem) {
         let title = noteTitle.text
@@ -70,7 +100,7 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
             PersistanceService.saveContext()
             print("Saved")
             let notificationPayload = ["data": note]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "noteCreated"), object: self, userInfo: notificationPayload)
+            NotificationCenter.default.post(name: NotificationConstants.noteCreated, object: self, userInfo: notificationPayload)
 
             self.dismiss(animated: true, completion: nil)
         }

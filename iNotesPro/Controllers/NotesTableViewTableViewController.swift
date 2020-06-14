@@ -12,10 +12,15 @@ import CoreData
 class NotesTableViewTableViewController: UITableViewController {
     
     var notes = [Note]()
+    var clickedNote: Note? = nil
+    var clickedNoteIndex: Int? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView(_:)), name: NSNotification.Name(rawValue: "noteCreated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView(_:)), name: NotificationConstants.noteCreated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView(_:)), name: NotificationConstants.noteUpdated, object: nil)
+        
+    
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
         do{
             self.notes = try PersistanceService.context.fetch(fetchRequest)
@@ -37,12 +42,19 @@ class NotesTableViewTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "activeNotesTableCell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "activeNotesTableCell") as! NotesTableViewCell
 
         cell.noteCellTitle?.text = notes[indexPath.row].noteTitle
         cell.noteCellDescription?.text = notes[indexPath.row].noteDescription
         return cell
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        clickedNote = notes[indexPath.row]
+        clickedNoteIndex = indexPath.row
+        self.performSegue(withIdentifier: "activeNoteCellClicked", sender: self)
+
+
+        
     }
     
     @objc func reloadTableView(_ notification: Notification){
@@ -54,7 +66,20 @@ class NotesTableViewTableViewController: UITableViewController {
                 notes.append(note)
             }
         }
+        if let data = notification.userInfo as? [String: Any]
+        {
+            notes[data["index"] as! Int] = data["data"] as! Note
+        }
         self.tableView.reloadData()
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "activeNoteCellClicked"
+        {
+            let destination = segue.destination as? NoteViewController
+            destination?.noteData = self.clickedNote
+            destination?.noteIndex = self.clickedNoteIndex
+        }
+    }
 }
