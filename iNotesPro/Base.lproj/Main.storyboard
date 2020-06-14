@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Settings-->
+        <!--Search-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="iNotesPro" customModuleProvider="target" sceneMemberID="viewController">
@@ -36,11 +36,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="360"/>
+            <point key="canvasLocation" x="749" y="394"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -54,6 +54,7 @@
                     <connections>
                         <segue destination="hDL-zP-FP4" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="khI-j4-Ws0" kind="relationship" relationship="viewControllers" id="5aU-cB-kJV"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -87,9 +88,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="EH0-h5-sNH">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="activeNotesTableCell" rowHeight="162" id="yoM-lL-OWu" customClass="NotesTableViewCell" customModule="iNotesPro" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="162"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="162"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yoM-lL-OWu" id="ZYN-66-28L">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="162"/>
@@ -138,6 +144,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchContainerView" destination="EH0-h5-sNH" id="las-hX-dHs"/>
                         <segue destination="UTq-Se-o2b" kind="show" identifier="activeNoteCellClicked" id="0c4-fu-8nl"/>
                     </connections>
                 </tableViewController>
@@ -203,6 +210,42 @@
             </objects>
             <point key="canvasLocation" x="2334.7826086956525" y="-320.08928571428572"/>
         </scene>
+        <!--Settings-->
+        <scene sceneID="vdv-4t-vWI">
+            <objects>
+                <viewController id="khI-j4-Ws0" customClass="SecondViewController" customModule="iNotesPro" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="v5z-uy-VIx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="rwb-jI-lgH">
+                                <rect key="frame" x="106" y="426.5" width="202" height="43"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLj-fZ-m9l">
+                                <rect key="frame" x="99.5" y="477.5" width="215" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="rwb-jI-lgH" secondAttribute="centerY" id="AFv-8X-Nwj"/>
+                            <constraint firstItem="DLj-fZ-m9l" firstAttribute="top" secondItem="rwb-jI-lgH" secondAttribute="bottom" constant="8" symbolic="YES" id="cPV-Qd-qjt"/>
+                            <constraint firstItem="DLj-fZ-m9l" firstAttribute="centerX" secondItem="rwb-jI-lgH" secondAttribute="centerX" id="opi-bF-6Hp"/>
+                            <constraint firstAttribute="centerX" secondItem="rwb-jI-lgH" secondAttribute="centerX" id="tqj-W7-9LM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9qN-Lg-4kw"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="9Aa-fL-2Uq"/>
+                    <navigationItem key="navigationItem" id="EhS-b1-HNm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QG6-pg-Jw4" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="815"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="0c4-fu-8nl"/>
@@ -210,6 +253,7 @@
     <resources>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus" catalog="system" width="128" height="113"/>
     </resources>
 </document>
