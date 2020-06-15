@@ -45,13 +45,14 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="TabBarController" customModule="iNotesPro" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
+                        <outlet property="defaultTabBar" destination="W28-zg-YXA" id="Kaj-jI-Mnt"/>
                         <segue destination="hDL-zP-FP4" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="khI-j4-Ws0" kind="relationship" relationship="viewControllers" id="5aU-cB-kJV"/>
@@ -137,7 +138,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="iNotes Pro" id="WIP-LA-sgO">
+                        <barButtonItem key="leftBarButtonItem" image="sortByDate" id="hDc-dn-Hy5">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="sortClicked:" destination="nu5-NZ-XdV" id="kVJ-YC-2Ku"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="icI-Ss-gGn">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
                                 <segue destination="UTq-Se-o2b" kind="presentation" id="CKm-re-yvq"/>
                             </connections>
@@ -145,6 +153,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="searchContainerView" destination="EH0-h5-sNH" id="las-hX-dHs"/>
+                        <outlet property="sortBtn" destination="hDc-dn-Hy5" id="NlL-oh-fbt"/>
                         <segue destination="UTq-Se-o2b" kind="show" identifier="activeNoteCellClicked" id="0c4-fu-8nl"/>
                     </connections>
                 </tableViewController>
@@ -157,7 +166,7 @@
             <objects>
                 <viewController id="UTq-Se-o2b" customClass="NoteViewController" customModule="iNotesPro" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cxI-DH-vgL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p5I-9T-owD">
@@ -248,12 +257,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0c4-fu-8nl"/>
+        <segue reference="CKm-re-yvq"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="sortByDate" width="25" height="25"/>
     </resources>
 </document>

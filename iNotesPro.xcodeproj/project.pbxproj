@@ -21,6 +21,7 @@
 		BD93B74924941D67009BE53E /* iNotesPro.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD93B74524941B74009BE53E /* iNotesPro.xcdatamodeld */; };
 		BD93B74C24946248009BE53E /* NotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B74B24946248009BE53E /* NotesTableViewCell.swift */; };
 		BD93B74F24956BA4009BE53E /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B74E24956BA4009BE53E /* Notification.swift */; };
+		BD93B7532496D0F1009BE53E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B7522496D0F1009BE53E /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		BD93B74624941B74009BE53E /* iNotesPro.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iNotesPro.xcdatamodel; sourceTree = "<group>"; };
 		BD93B74B24946248009BE53E /* NotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewCell.swift; sourceTree = "<group>"; };
 		BD93B74E24956BA4009BE53E /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		BD93B7522496D0F1009BE53E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				BD93B72A24930670009BE53E /* NoteViewController.swift */,
 				BD93B7172491EED7009BE53E /* SecondViewController.swift */,
 				BD93B72D24930805009BE53E /* NotesTableViewTableViewController.swift */,
+				BD93B7522496D0F1009BE53E /* TabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				BD93B74924941D67009BE53E /* iNotesPro.xcdatamodeld in Sources */,
 				BD93B74C24946248009BE53E /* NotesTableViewCell.swift in Sources */,
 				BD93B74F24956BA4009BE53E /* Notification.swift in Sources */,
+				BD93B7532496D0F1009BE53E /* TabBarController.swift in Sources */,
 				BD93B72E24930805009BE53E /* NotesTableViewTableViewController.swift in Sources */,
 				BD93B741249405B2009BE53E /* Note+CoreDataProperties.swift in Sources */,
 			);

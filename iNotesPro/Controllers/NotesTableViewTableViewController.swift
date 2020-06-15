@@ -11,17 +11,26 @@ import CoreData
 
 class NotesTableViewTableViewController: UITableViewController {
     
-    var originalNotesDataSource = [Note]()
+    var intactNotesDataSource = [Note]()
+    var originalSortedNotesDataSource = [Note]()
     var currentNotesDataSource = [Note]()
     var clickedNote: Note? = nil
     var clickedNoteIndex: Int? = nil
+    let topOffset: CGFloat = 86
+    
+    let sortByDate = 0
+    let sortByTitle = 1
+    var selectedSortMode = 0
 
     @IBOutlet weak var searchContainerView: UIView!
+    @IBOutlet weak var sortBtn: UIBarButtonItem!
     var searchController: UISearchController!
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView(_:)), name: NotificationConstants.noteCreated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView(_:)), name: NotificationConstants.noteUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView(_:)), name: NotificationConstants.iNotesTabBarItemTapped, object: nil)
+
         
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -31,8 +40,10 @@ class NotesTableViewTableViewController: UITableViewController {
     
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
         do{
-            self.originalNotesDataSource = try PersistanceService.context.fetch(fetchRequest)
-            self.currentNotesDataSource = self.originalNotesDataSource
+            self.intactNotesDataSource = try PersistanceService.context.fetch(fetchRequest)
+            self.currentNotesDataSource = self.intactNotesDataSource
+            self.originalSortedNotesDataSource = self.currentNotesDataSource.sorted(by: { $0.createdAt!.compare($1.createdAt!) == .orderedDescending })
+            self.currentNotesDataSource = self.originalSortedNotesDataSource
             self.tableView.reloadData()
         } catch{
             
@@ -62,32 +73,35 @@ class NotesTableViewTableViewController: UITableViewController {
         clickedNoteIndex = indexPath.row
         searchController.isActive = false
         self.performSegue(withIdentifier: "activeNoteCellClicked", sender: self)
-
-
-        
     }
-    
+
     @objc func reloadTableView(_ notification: Notification){
         //load data here
-        if notification.name == NotificationConstants.noteCreated
-        {
+        switch notification.name {
+        case NotificationConstants.noteCreated:
             let data = notification.userInfo as? [String: Note]
             for (_, note) in data!
             {
-                currentNotesDataSource = originalNotesDataSource
-                originalNotesDataSource.append(note)
+                currentNotesDataSource = originalSortedNotesDataSource
+                originalSortedNotesDataSource.append(note)
                 currentNotesDataSource.append(note)
             }
-        }
-        if notification.name == NotificationConstants.noteUpdated
-        {
+            //self.tableView.reloadData()
+            self.reloadDataBySelectedSortMode()
+        case NotificationConstants.noteUpdated:
             let data = notification.userInfo as? [String: Any]
-            let indexInOriginalDataSource = originalNotesDataSource.firstIndex(of: clickedNote!)
-            currentNotesDataSource = originalNotesDataSource
+            let indexInOriginalDataSource = originalSortedNotesDataSource.firstIndex(of: clickedNote!)
+            currentNotesDataSource = originalSortedNotesDataSource
             currentNotesDataSource[indexInOriginalDataSource!] = data!["data"] as! Note
             //currentNotesDataSource[data!["index"] as! Int] = data!["data"] as! Note
+            self.tableView.reloadData()
+        case NotificationConstants.iNotesTabBarItemTapped:
+            self.tableView.scrollRectToVisible(searchController.searchBar.frame, animated: true)
+        default:
+            self.tableView.reloadData()
         }
-        self.tableView.reloadData()
+        
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -97,6 +111,33 @@ class NotesTableViewTableViewController: UITableViewController {
             let destination = segue.destination as? NoteViewController
             destination?.noteData = self.clickedNote
             destination?.noteIndex = self.clickedNoteIndex
+        }
+    }
+    
+    @IBAction func sortClicked(_ sender: UIBarButtonItem) {
+        if sender.tag == sortByDate {
+            sender.tag = sortByTitle
+            sender.image = UIImage(named: "sortByTitle")
+            self.selectedSortMode = sortByTitle
+        }
+        else{
+            sender.tag = sortByDate
+            sender.image = UIImage(named: "sortByDate")
+            self.selectedSortMode = sortByDate
+        }
+        self.reloadDataBySelectedSortMode()
+    }
+    
+    func reloadDataBySelectedSortMode() {
+        if selectedSortMode == sortByDate{
+            self.originalSortedNotesDataSource = self.currentNotesDataSource.sorted(by: { $0.createdAt!.compare($1.createdAt!) == .orderedDescending })
+            self.currentNotesDataSource = self.originalSortedNotesDataSource
+            self.tableView.reloadData()
+        }
+        else{
+            self.currentNotesDataSource.sort(by: { $0.noteTitle!.lowercased() < $1.noteTitle!.lowercased() })
+            self.originalSortedNotesDataSource = self.currentNotesDataSource
+            self.tableView.reloadData()
         }
     }
     
@@ -112,7 +153,7 @@ class NotesTableViewTableViewController: UITableViewController {
         }
     }
     func restoreCurrentDataSource(){
-        currentNotesDataSource = originalNotesDataSource
+        currentNotesDataSource = originalSortedNotesDataSource
         self.tableView.reloadData()
     }
 }
