@@ -17,6 +17,7 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
     @IBOutlet weak var noteDescription: UITextView!
     @IBOutlet weak var selectImageBtn: UIButton!
     @IBOutlet weak var imageScrollView: UIScrollView!
+    @IBOutlet weak var titleAndDescriptionVIew: UIView!
     var locationString = ""
     var noteData: Note? = nil
     var attachmentData: Attachments? = nil
@@ -36,25 +37,35 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
     func setupView(){
         noteDescription.delegate = self
         if(noteData != nil){
-            noteTitle.text = noteData?.noteTitle
-            noteDescription.text = noteData?.noteDescription
+            setupViewItems()
         }
         else{
-            self.locationManager.requestAlwaysAuthorization()
-
-            // For use in foreground
-            self.locationManager.requestWhenInUseAuthorization()
-
-            if CLLocationManager.locationServicesEnabled() {
-                locationManager.delegate = self
-                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-                locationManager.requestLocation()
-            }
-            noteDescription.text = "Take a note..."
-            noteDescription.textColor = UIColor.lightGray
+            setupLocationManager()
         }
     }
-    
+    func setupViewItems(){
+        noteTitle.text = noteData?.noteTitle
+        noteDescription.text = noteData?.noteDescription
+        for attachment in noteData!.attachmentsArray {
+            handleImage(image: UIImage(data: attachment.attachmentBinary!)!, imageTag: TagConstants.savedImage)
+        }
+        
+        
+    }
+    func setupLocationManager(){
+        self.locationManager.requestAlwaysAuthorization()
+
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.requestLocation()
+        }
+        noteDescription.text = "Take a note..."
+        noteDescription.textColor = UIColor.lightGray
+    }
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
@@ -79,25 +90,45 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
         fetchRequest.predicate = NSPredicate(format: "noteID = %@", noteData?.noteID! as! CVarArg)
 
         do{
-            let fetchResults = try PersistanceService.context.fetch(fetchRequest)
-                if fetchResults.count != 0{
+        let fetchResults = try PersistanceService.context.fetch(fetchRequest)
+            if fetchResults.count != 0 {
+                let managedObject: Note = fetchResults[0] as! Note
+                noteData?.noteTitle = noteTitle.text!
+                noteData?.noteDescription = noteDescription.text!
+                managedObject.setValue(noteTitle.text!, forKey: "noteTitle")
+                managedObject.setValue(noteDescription.text!, forKey: "noteDescription")
 
-                    let managedObject: Note = fetchResults[0] as! Note
-                    noteData?.noteTitle = noteTitle.text!
-                    noteData?.noteDescription = noteDescription.text!
-                    managedObject.setValue(noteTitle.text!, forKey: "noteTitle")
-                    managedObject.setValue(noteDescription.text!, forKey: "noteDescription")
-
-                    try PersistanceService.context.save()
-                    let notificationPayload = ["data": noteData!, "index": noteIndex!] as [String : Any]
-                    NotificationCenter.default.post(name: NotificationConstants.noteUpdated, object: self, userInfo: notificationPayload)
-                    navigationController?.popViewController(animated: true)
+                let images = imageScrollView.subviews.filter{ ($0 is UIImageView) }
+                let imagesToSave = images.filter{ ($0 as! UIImageView).tag == TagConstants.pickedImage }
+                print (imagesToSave.count)
+                if imagesToSave.count > 0 {
+                    for image in imagesToSave {
+                        print((image as! UIImageView).tag)
+                        let attachment = Attachments(context: PersistanceService.context)
+                        attachment.attachmentID = UUID().uuidString
+                        attachment.noteID = noteData!.noteID
+                        attachment.attachmentBinary = (image as! UIImageView).image!.jpegData(compressionQuality: 1.0)
+                        attachment.createdAt = Date()
+                        attachment.updatedAt = Date()
+                        attachment.attachmentType = AttachmentConstants.image
+                        noteData!.addToAttachments(attachment)
+                    }
                 }
+                    
+                do {
+                    try PersistanceService.context.save()
+                }
+                catch {
+                        
+                }
+                let notificationPayload = ["data": noteData!, "index": noteIndex!] as [String : Any]
+                NotificationCenter.default.post(name: NotificationConstants.noteUpdated, object: self, userInfo: notificationPayload)
+                navigationController?.popViewController(animated: true)
+            }
             
         } catch{
             
         }
-        
     }
     @IBAction func noteDone(_ sender: UIBarButtonItem) {
         let title = noteTitle.text
@@ -129,6 +160,7 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
                     attachment.createdAt = Date()
                     attachment.updatedAt = Date()
                     attachment.attachmentType = AttachmentConstants.image
+                    note.addToAttachments(attachment)
                 }
                 
             }
@@ -194,14 +226,14 @@ extension NoteViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            self.handlePickedImage(image: editedImage)
+            self.handleImage(image: editedImage, imageTag: TagConstants.pickedImage)
         } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.handlePickedImage(image: originalImage)
+            self.handleImage(image: originalImage, imageTag: TagConstants.pickedImage)
         }
         dismiss(animated: true, completion: nil)
     }
     
-    func handlePickedImage(image: UIImage){
+    func handleImage(image: UIImage, imageTag: Int){
         let imageView = UIImageView(image: image)
         imageView.frame = CGRect(x: 0, y: 0, width: 398, height: 188)
         var scale: CGFloat = 1
@@ -215,7 +247,7 @@ extension NoteViewController: UIImagePickerControllerDelegate, UINavigationContr
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
         imageView.frame.origin.x = xPosition
         imageView.frame.origin.y = 10
-        imageView.tag = TagConstants.pickedImage
+        imageView.tag = imageTag
         let spacer: CGFloat = 10
         xPosition = xPosition + imageView.frame.width + spacer
                

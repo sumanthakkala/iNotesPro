@@ -283,6 +283,7 @@
                         <outlet property="imageScrollView" destination="sA1-uI-DgX" id="Kng-7i-MDI"/>
                         <outlet property="noteDescription" destination="7BU-ia-fdf" id="Nfm-g2-ueN"/>
                         <outlet property="noteTitle" destination="Z24-BH-7OP" id="quN-zS-Iot"/>
+                        <outlet property="titleAndDescriptionVIew" destination="bDg-uj-SwE" id="mlk-li-NxQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sx2-Z5-m21" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

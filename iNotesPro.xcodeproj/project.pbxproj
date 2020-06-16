@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		BD08A11524992F6000BCC181 /* Attachments.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08A11424992F6000BCC181 /* Attachments.swift */; };
+		BD08A11E2499357400BCC181 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08A11A2499357400BCC181 /* Note+CoreDataClass.swift */; };
+		BD08A11F2499357400BCC181 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08A11B2499357400BCC181 /* Note+CoreDataProperties.swift */; };
+		BD08A1202499357400BCC181 /* Attachments+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08A11C2499357400BCC181 /* Attachments+CoreDataClass.swift */; };
+		BD08A1212499357400BCC181 /* Attachments+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08A11D2499357400BCC181 /* Attachments+CoreDataProperties.swift */; };
 		BD93B7122491EED7009BE53E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B7112491EED7009BE53E /* AppDelegate.swift */; };
 		BD93B7142491EED7009BE53E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B7132491EED7009BE53E /* SceneDelegate.swift */; };
 		BD93B7182491EED7009BE53E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B7172491EED7009BE53E /* SecondViewController.swift */; };
@@ -17,19 +21,19 @@
 		BD93B72B24930670009BE53E /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B72A24930670009BE53E /* NoteViewController.swift */; };
 		BD93B72E24930805009BE53E /* NotesTableViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B72D24930805009BE53E /* NotesTableViewTableViewController.swift */; };
 		BD93B73024930A5F009BE53E /* PersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B72F24930A5F009BE53E /* PersistanceService.swift */; };
-		BD93B740249405B2009BE53E /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B73E249405B2009BE53E /* Note+CoreDataClass.swift */; };
-		BD93B741249405B2009BE53E /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B73F249405B2009BE53E /* Note+CoreDataProperties.swift */; };
 		BD93B74924941D67009BE53E /* iNotesPro.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD93B74524941B74009BE53E /* iNotesPro.xcdatamodeld */; };
 		BD93B74C24946248009BE53E /* NotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B74B24946248009BE53E /* NotesTableViewCell.swift */; };
 		BD93B74F24956BA4009BE53E /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B74E24956BA4009BE53E /* Notification.swift */; };
 		BD93B7532496D0F1009BE53E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B7522496D0F1009BE53E /* TabBarController.swift */; };
-		BD93B75624987B57009BE53E /* Attachments+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B75424987B56009BE53E /* Attachments+CoreDataClass.swift */; };
-		BD93B75724987B57009BE53E /* Attachments+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B75524987B57009BE53E /* Attachments+CoreDataProperties.swift */; };
 		BD93B75924987C76009BE53E /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B75824987C76009BE53E /* Tags.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BD08A11424992F6000BCC181 /* Attachments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachments.swift; sourceTree = "<group>"; };
+		BD08A11A2499357400BCC181 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataClass.swift"; path = "iNotesPro/Controllers/Note+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		BD08A11B2499357400BCC181 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "iNotesPro/Controllers/Note+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		BD08A11C2499357400BCC181 /* Attachments+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Attachments+CoreDataClass.swift"; path = "iNotesPro/Controllers/Attachments+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		BD08A11D2499357400BCC181 /* Attachments+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Attachments+CoreDataProperties.swift"; path = "iNotesPro/Controllers/Attachments+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		BD93B70E2491EED7009BE53E /* iNotesPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNotesPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD93B7112491EED7009BE53E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD93B7132491EED7009BE53E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,14 +45,10 @@
 		BD93B72A24930670009BE53E /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		BD93B72D24930805009BE53E /* NotesTableViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewTableViewController.swift; sourceTree = "<group>"; };
 		BD93B72F24930A5F009BE53E /* PersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceService.swift; sourceTree = "<group>"; };
-		BD93B73E249405B2009BE53E /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataClass.swift"; path = "iNotesPro/DataModels/Note+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BD93B73F249405B2009BE53E /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "iNotesPro/DataModels/Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BD93B74624941B74009BE53E /* iNotesPro.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iNotesPro.xcdatamodel; sourceTree = "<group>"; };
 		BD93B74B24946248009BE53E /* NotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewCell.swift; sourceTree = "<group>"; };
 		BD93B74E24956BA4009BE53E /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		BD93B7522496D0F1009BE53E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		BD93B75424987B56009BE53E /* Attachments+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Attachments+CoreDataClass.swift"; path = "iNotesPro/DataModels/Attachments+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BD93B75524987B57009BE53E /* Attachments+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Attachments+CoreDataProperties.swift"; path = "iNotesPro/DataModels/Attachments+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BD93B75824987C76009BE53E /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,10 +66,6 @@
 		BD93B7052491EED7009BE53E = {
 			isa = PBXGroup;
 			children = (
-				BD93B75424987B56009BE53E /* Attachments+CoreDataClass.swift */,
-				BD93B75524987B57009BE53E /* Attachments+CoreDataProperties.swift */,
-				BD93B73E249405B2009BE53E /* Note+CoreDataClass.swift */,
-				BD93B73F249405B2009BE53E /* Note+CoreDataProperties.swift */,
 				BD93B7102491EED7009BE53E /* iNotesPro */,
 				BD93B70F2491EED7009BE53E /* Products */,
 			);
@@ -116,6 +112,10 @@
 		BD93B73124930FA6009BE53E /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				BD08A11A2499357400BCC181 /* Note+CoreDataClass.swift */,
+				BD08A11B2499357400BCC181 /* Note+CoreDataProperties.swift */,
+				BD08A11C2499357400BCC181 /* Attachments+CoreDataClass.swift */,
+				BD08A11D2499357400BCC181 /* Attachments+CoreDataProperties.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -209,22 +209,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD93B75724987B57009BE53E /* Attachments+CoreDataProperties.swift in Sources */,
 				BD93B7182491EED7009BE53E /* SecondViewController.swift in Sources */,
+				BD08A11F2499357400BCC181 /* Note+CoreDataProperties.swift in Sources */,
 				BD93B7122491EED7009BE53E /* AppDelegate.swift in Sources */,
 				BD93B72B24930670009BE53E /* NoteViewController.swift in Sources */,
 				BD93B7142491EED7009BE53E /* SceneDelegate.swift in Sources */,
 				BD93B73024930A5F009BE53E /* PersistanceService.swift in Sources */,
-				BD93B740249405B2009BE53E /* Note+CoreDataClass.swift in Sources */,
+				BD08A1212499357400BCC181 /* Attachments+CoreDataProperties.swift in Sources */,
+				BD08A1202499357400BCC181 /* Attachments+CoreDataClass.swift in Sources */,
 				BD93B74924941D67009BE53E /* iNotesPro.xcdatamodeld in Sources */,
 				BD08A11524992F6000BCC181 /* Attachments.swift in Sources */,
+				BD08A11E2499357400BCC181 /* Note+CoreDataClass.swift in Sources */,
 				BD93B75924987C76009BE53E /* Tags.swift in Sources */,
 				BD93B74C24946248009BE53E /* NotesTableViewCell.swift in Sources */,
 				BD93B74F24956BA4009BE53E /* Notification.swift in Sources */,
 				BD93B7532496D0F1009BE53E /* TabBarController.swift in Sources */,
 				BD93B72E24930805009BE53E /* NotesTableViewTableViewController.swift in Sources */,
-				BD93B75624987B57009BE53E /* Attachments+CoreDataClass.swift in Sources */,
-				BD93B741249405B2009BE53E /* Note+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

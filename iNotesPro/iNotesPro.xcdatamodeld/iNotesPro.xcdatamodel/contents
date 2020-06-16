@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F96" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="v1">
+    <entity name="Attachments" representedClassName="Attachments" syncable="YES">
+        <attribute name="attachmentBinary" optional="YES" attributeType="Binary"/>
+        <attribute name="attachmentID" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="attachmentType" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" defaultDateTimeInterval="613972500" usesScalarValueType="NO"/>
+        <attribute name="noteID" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" defaultDateTimeInterval="613972500" usesScalarValueType="NO"/>
+        <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="attachments" inverseEntity="Note"/>
+    </entity>
     <entity name="Note" representedClassName="Note" syncable="YES">
         <attribute name="createdAt" attributeType="Date" defaultDateTimeInterval="613686360" usesScalarValueType="NO"/>
+        <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="location" attributeType="String" defaultValueString=""/>
         <attribute name="noteDescription" attributeType="String" defaultValueString=""/>
         <attribute name="noteID" attributeType="String" defaultValueString=""/>
         <attribute name="noteTitle" attributeType="String" defaultValueString=""/>
         <attribute name="updatedAt" attributeType="Date" defaultDateTimeInterval="613686300" usesScalarValueType="NO"/>
+        <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachments" inverseName="note" inverseEntity="Attachments"/>
     </entity>
     <elements>
-        <element name="Note" positionX="-36" positionY="9" width="128" height="133"/>
+        <element name="Attachments" positionX="0" positionY="99" width="128" height="148"/>
+        <element name="Note" positionX="-36" positionY="9" width="128" height="163"/>
     </elements>
 </model>

@@ -23,5 +23,6 @@ extension Attachments {
     @NSManaged public var createdAt: Date?
     @NSManaged public var noteID: String?
     @NSManaged public var updatedAt: Date?
+    @NSManaged public var note: Note?
 
 }
