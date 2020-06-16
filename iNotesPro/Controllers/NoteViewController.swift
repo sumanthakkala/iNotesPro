@@ -19,10 +19,13 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
     @IBOutlet weak var imageScrollView: UIScrollView!
     var locationString = ""
     var noteData: Note? = nil
+    var attachmentData: Attachments? = nil
     var noteIndex: Int? = nil
     let imageWidth: CGFloat = 398
     var xPosition: CGFloat = 0
     var scrollViewContentWidth: CGFloat = 0
+    
+    var addedImages = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,6 +107,7 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
         print(locationString)
         
         if (title != "" || description != ""){
+            //Note table row insertion
             let note = Note(context: PersistanceService.context)
             note.noteID = UUID().uuidString
             note.noteTitle = noteTitle.text!
@@ -112,6 +116,23 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
             note.updatedAt = Date()
             note.location = locationString
             
+            //Attachment table row insertion
+            let imagesToSave = imageScrollView.subviews.filter{ ($0 is UIImageView) }
+            print (imagesToSave.count)
+            if imagesToSave.count > 0 {
+                for image in imagesToSave {
+                    print((image as! UIImageView).tag)
+                    let attachment = Attachments(context: PersistanceService.context)
+                    attachment.attachmentID = UUID().uuidString
+                    attachment.noteID = note.noteID
+                    attachment.attachmentBinary = (image as! UIImageView).image!.jpegData(compressionQuality: 1.0)
+                    attachment.createdAt = Date()
+                    attachment.updatedAt = Date()
+                    attachment.attachmentType = AttachmentConstants.image
+                }
+                
+            }
+                        
             PersistanceService.saveContext()
             print("Saved")
             let notificationPayload = ["data": note]
@@ -192,10 +213,10 @@ extension NoteViewController: UIImagePickerControllerDelegate, UINavigationContr
         imageView.frame.size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
 
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
-               imageView.frame.origin.x = xPosition
-               imageView.frame.origin.y = 10
-
-               let spacer: CGFloat = 10
+        imageView.frame.origin.x = xPosition
+        imageView.frame.origin.y = 10
+        imageView.tag = TagConstants.pickedImage
+        let spacer: CGFloat = 10
         xPosition = xPosition + imageView.frame.width + spacer
                
         
@@ -214,12 +235,12 @@ extension NoteViewController: UIImagePickerControllerDelegate, UINavigationContr
         addBtn.setImage(boldSearch, for: .normal)
         addBtn.backgroundColor = UIColor.systemBackground
         
-
-        addBtn.tag = 1
+        //tag is set to 1 if it is add image button
+        addBtn.tag = TagConstants.addImageBtn
         
         scrollViewContentWidth = scrollViewContentWidth + imageView.frame.width + addBtn.frame.width + spacer
         imageScrollView.contentSize = CGSize(width: scrollViewContentWidth, height: 188)
-        let prevAddBtn = imageScrollView.viewWithTag(1) as? UIButton
+        let prevAddBtn = imageScrollView.viewWithTag(TagConstants.addImageBtn) as? UIButton
         prevAddBtn?.removeTarget(self, action: #selector(selectImageClicked), for: .touchUpInside)
         prevAddBtn?.removeFromSuperview()
         addBtn.addTarget(self, action: #selector(selectImageClicked), for: .touchUpInside)
@@ -228,5 +249,6 @@ extension NoteViewController: UIImagePickerControllerDelegate, UINavigationContr
         imageScrollView.addSubview(addBtn)
         //removing previously added button scroll width
         scrollViewContentWidth = scrollViewContentWidth - addBtn.frame.width
+        addedImages.append(image)
     }
 }
