@@ -166,24 +166,9 @@
             <objects>
                 <viewController id="UTq-Se-o2b" customClass="NoteViewController" customModule="iNotesPro" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cxI-DH-vgL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p5I-9T-owD">
-                                <rect key="frame" x="20" y="96" width="374" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kyk-hA-ALz">
-                                <rect key="frame" x="20" y="125" width="374" height="634"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NoM-AF-ZyM">
                                 <rect key="frame" x="0.0" y="8" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -197,6 +182,90 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="hPY-yL-dcy">
+                                <rect key="frame" x="0.0" y="88" width="414" height="676"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sA1-uI-DgX">
+                                        <rect key="frame" x="8" y="0.0" width="398" height="188"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jki-do-CT4">
+                                                <rect key="frame" x="0.0" y="0.0" width="398" height="188"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Click here to select an image">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="selectImageClicked:" destination="UTq-Se-o2b" eventType="touchUpInside" id="PKA-KE-1ar"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="sA1-uI-DgX" secondAttribute="height" multiplier="199:94" id="aNL-BY-JLa"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="contentLayoutGuide" id="sFH-Xm-uQS"/>
+                                        <viewLayoutGuide key="frameLayoutGuide" id="VX1-nu-zoE"/>
+                                    </scrollView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cU-wj-mws">
+                                        <rect key="frame" x="8" y="626" width="398" height="50"/>
+                                        <subviews>
+                                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="UYW-ku-OdE">
+                                                <rect key="frame" x="28" y="10" width="343" height="31"/>
+                                            </slider>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="9cU-wj-mws" secondAttribute="height" multiplier="199:25" id="3nK-E9-Hiv"/>
+                                            <constraint firstItem="UYW-ku-OdE" firstAttribute="centerY" secondItem="9cU-wj-mws" secondAttribute="centerY" id="dRx-MY-plT"/>
+                                            <constraint firstItem="UYW-ku-OdE" firstAttribute="centerX" secondItem="9cU-wj-mws" secondAttribute="centerX" id="ehn-hG-UEy"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDg-uj-SwE">
+                                        <rect key="frame" x="8" y="196" width="398" height="422"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z24-BH-7OP">
+                                                <rect key="frame" x="0.0" y="8" width="398" height="34"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Z24-BH-7OP" secondAttribute="height" multiplier="199:17" id="XmK-qa-DS2"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7BU-ia-fdf">
+                                                <rect key="frame" x="8" y="50" width="382" height="364"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Z24-BH-7OP" firstAttribute="leading" secondItem="bDg-uj-SwE" secondAttribute="leading" id="GGV-Tj-5IL"/>
+                                            <constraint firstAttribute="trailing" secondItem="Z24-BH-7OP" secondAttribute="trailing" id="WRY-dF-9S4"/>
+                                            <constraint firstItem="Z24-BH-7OP" firstAttribute="top" secondItem="bDg-uj-SwE" secondAttribute="top" constant="8" id="lwR-1e-QY9"/>
+                                            <constraint firstAttribute="width" secondItem="bDg-uj-SwE" secondAttribute="height" multiplier="199:211" id="nHt-BH-Rns"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="9cU-wj-mws" firstAttribute="leading" secondItem="T6y-r3-sT5" secondAttribute="leading" constant="8" id="3dY-a7-iXf"/>
+                                    <constraint firstItem="9cU-wj-mws" firstAttribute="top" secondItem="bDg-uj-SwE" secondAttribute="bottom" constant="8" id="3lG-5c-HYK"/>
+                                    <constraint firstItem="sA1-uI-DgX" firstAttribute="leading" secondItem="T6y-r3-sT5" secondAttribute="leading" constant="8" id="NU8-j1-6JV"/>
+                                    <constraint firstItem="bDg-uj-SwE" firstAttribute="top" secondItem="sA1-uI-DgX" secondAttribute="bottom" constant="8" id="Qst-6T-Ea2"/>
+                                    <constraint firstItem="sA1-uI-DgX" firstAttribute="top" secondItem="T6y-r3-sT5" secondAttribute="top" id="Y9N-sL-l5Z"/>
+                                    <constraint firstItem="bDg-uj-SwE" firstAttribute="leading" secondItem="T6y-r3-sT5" secondAttribute="leading" constant="8" id="eal-Cu-0TE"/>
+                                    <constraint firstItem="9cU-wj-mws" firstAttribute="bottom" secondItem="T6y-r3-sT5" secondAttribute="bottom" id="iRH-US-rk2"/>
+                                    <constraint firstItem="T6y-r3-sT5" firstAttribute="trailing" secondItem="bDg-uj-SwE" secondAttribute="trailing" constant="8" id="p0f-6x-fxc"/>
+                                    <constraint firstItem="T6y-r3-sT5" firstAttribute="trailing" secondItem="sA1-uI-DgX" secondAttribute="trailing" constant="8" id="s8N-q4-XH1"/>
+                                    <constraint firstItem="T6y-r3-sT5" firstAttribute="trailing" secondItem="9cU-wj-mws" secondAttribute="trailing" constant="8" id="vYr-Wc-CkK"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="f7j-gl-EG5"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="T6y-r3-sT5"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="v1k-YI-oOA"/>
@@ -211,8 +280,9 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="noteDescription" destination="kyk-hA-ALz" id="rBe-Zn-mj2"/>
-                        <outlet property="noteTitle" destination="p5I-9T-owD" id="PvB-Lm-LGe"/>
+                        <outlet property="imageScrollView" destination="sA1-uI-DgX" id="Kng-7i-MDI"/>
+                        <outlet property="noteDescription" destination="7BU-ia-fdf" id="Nfm-g2-ueN"/>
+                        <outlet property="noteTitle" destination="Z24-BH-7OP" id="quN-zS-Iot"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sx2-Z5-m21" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -257,7 +327,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CKm-re-yvq"/>
+        <segue reference="0c4-fu-8nl"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gear" catalog="system" width="128" height="119"/>

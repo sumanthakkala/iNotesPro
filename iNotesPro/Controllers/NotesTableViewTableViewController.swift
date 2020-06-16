@@ -143,7 +143,7 @@ class NotesTableViewTableViewController: UITableViewController {
     
     func filterCurrentDataSource(searchTerm: String) {
         if searchTerm.count > 0 {
-            //currentNotesDataSource = originalNotesDataSource
+            currentNotesDataSource = originalSortedNotesDataSource
             let filteredNotes = currentNotesDataSource.filter{ ($0.noteTitle?.replacingOccurrences(of: " ", with: "").lowercased().contains(searchTerm.replacingOccurrences(of: " ", with: "").lowercased()))!
                 ||
                 ($0.noteDescription?.replacingOccurrences(of: " ", with: "").lowercased().contains(searchTerm.replacingOccurrences(of: " ", with: "").lowercased()))!
