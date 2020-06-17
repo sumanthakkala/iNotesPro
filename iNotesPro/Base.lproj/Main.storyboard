@@ -232,7 +232,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7BU-ia-fdf">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7BU-ia-fdf">
                                                 <rect key="frame" x="8" y="50" width="382" height="364"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -280,10 +280,12 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="audioContainerView" destination="9cU-wj-mws" id="r9d-sz-aqE"/>
+                        <outlet property="entireScrollView" destination="hPY-yL-dcy" id="cYS-G6-abN"/>
                         <outlet property="imageScrollView" destination="sA1-uI-DgX" id="Kng-7i-MDI"/>
                         <outlet property="noteDescription" destination="7BU-ia-fdf" id="Nfm-g2-ueN"/>
                         <outlet property="noteTitle" destination="Z24-BH-7OP" id="quN-zS-Iot"/>
-                        <outlet property="titleAndDescriptionVIew" destination="bDg-uj-SwE" id="mlk-li-NxQ"/>
+                        <outlet property="titleAndDescriptionContainerView" destination="bDg-uj-SwE" id="mlk-li-NxQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sx2-Z5-m21" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

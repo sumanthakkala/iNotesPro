@@ -10,14 +10,16 @@ import UIKit
 import CoreData
 import CoreLocation
 
-class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate {
+class NoteViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
 
+    @IBOutlet weak var entireScrollView: UIScrollView!
     @IBOutlet weak var noteTitle: UITextField!
     @IBOutlet weak var noteDescription: UITextView!
     @IBOutlet weak var selectImageBtn: UIButton!
     @IBOutlet weak var imageScrollView: UIScrollView!
-    @IBOutlet weak var titleAndDescriptionVIew: UIView!
+    @IBOutlet weak var audioContainerView: UIView!
+    @IBOutlet weak var titleAndDescriptionContainerView: UIView!
     var locationString = ""
     var noteData: Note? = nil
     var attachmentData: Attachments? = nil
@@ -35,7 +37,7 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
     }
     
     func setupView(){
-        noteDescription.delegate = self
+        
         if(noteData != nil){
             setupViewItems()
         }
@@ -44,13 +46,22 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
         }
     }
     func setupViewItems(){
+        noteDescription.delegate = self
+        noteDescription.isScrollEnabled = false
         noteTitle.text = noteData?.noteTitle
         noteDescription.text = noteData?.noteDescription
         for attachment in noteData!.attachmentsArray {
             handleImage(image: UIImage(data: attachment.attachmentBinary!)!, imageTag: TagConstants.savedImage)
         }
         
-        
+        noteDescription.translatesAutoresizingMaskIntoConstraints = false
+        [
+            noteDescription.topAnchor.constraint(equalTo: noteTitle.bottomAnchor),
+            noteDescription.leadingAnchor.constraint(equalTo: titleAndDescriptionContainerView.leadingAnchor),
+            noteDescription.trailingAnchor.constraint(equalTo: titleAndDescriptionContainerView.trailingAnchor),
+            noteDescription.heightAnchor.constraint(equalToConstant: 50)
+            ].forEach{ $0.isActive = true }
+        textViewDidChange(noteDescription)
     }
     func setupLocationManager(){
         self.locationManager.requestAlwaysAuthorization()
@@ -66,18 +77,7 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, UITextVie
         noteDescription.text = "Take a note..."
         noteDescription.textColor = UIColor.lightGray
     }
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
-            textView.text = nil
-            textView.textColor = UIColor.black
-        }
-    }
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = "Take a note..."
-            textView.textColor = UIColor.lightGray
-        }
-    }
+    
     
 
     @IBAction func selectImageClicked(_ sender: UIButton) {
@@ -282,5 +282,35 @@ extension NoteViewController: UIImagePickerControllerDelegate, UINavigationContr
         //removing previously added button scroll width
         scrollViewContentWidth = scrollViewContentWidth - addBtn.frame.width
         addedImages.append(image)
+    }
+}
+
+extension NoteViewController: UITextViewDelegate{
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: titleAndDescriptionContainerView.frame.width, height: .infinity)
+        let estimatedSize = noteDescription.sizeThatFits(size)
+        noteDescription.constraints.forEach{
+            (constraint) in if constraint.firstAttribute == .height{
+                constraint.constant = estimatedSize.height
+            }
+        }
+        titleAndDescriptionContainerView.constraints.forEach{
+            (constraint) in if constraint.firstAttribute == .height{
+                constraint.constant = estimatedSize.height + noteTitle.frame.height
+            }
+        }
+        entireScrollView.contentSize = CGSize(width: entireScrollView.frame.width, height: (imageScrollView.frame.height + titleAndDescriptionContainerView.frame.height + audioContainerView.frame.height))
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Take a note..."
+            textView.textColor = UIColor.lightGray
+        }
     }
 }
