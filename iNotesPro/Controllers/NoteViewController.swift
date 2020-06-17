@@ -37,7 +37,7 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func setupView(){
-        
+        noteDescription.delegate = self
         if(noteData != nil){
             setupViewItems()
         }
@@ -46,7 +46,7 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     func setupViewItems(){
-        noteDescription.delegate = self
+        
         noteDescription.isScrollEnabled = false
         noteTitle.text = noteData?.noteTitle
         noteDescription.text = noteData?.noteDescription
@@ -197,7 +197,7 @@ extension NoteViewController: UIImagePickerControllerDelegate, UINavigationContr
         let alert = UIAlertController(title: "Select source", message: nil, preferredStyle: .actionSheet)
             
         // 2
-        let deleteAction = UIAlertAction(title: "Choose a Photo", style: .default) { (action) in
+        let chooseAction = UIAlertAction(title: "Choose a Photo", style: .default) { (action) in
             self.showImagePickerController(sourceType: .photoLibrary)
         }
         let saveAction = UIAlertAction(title: "Take a New Photo", style: .default) { (action) in
@@ -208,7 +208,7 @@ extension NoteViewController: UIImagePickerControllerDelegate, UINavigationContr
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
             
         // 4
-        alert.addAction(deleteAction)
+        alert.addAction(chooseAction)
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
             
