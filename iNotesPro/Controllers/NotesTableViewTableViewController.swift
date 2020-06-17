@@ -11,12 +11,13 @@ import CoreData
 
 class NotesTableViewTableViewController: UITableViewController {
     
-    var intactNotesDataSource = [Note]()
+    var intactActiveNotesDataSource = [Note]()
     var originalSortedNotesDataSource = [Note]()
     var currentNotesDataSource = [Note]()
     var clickedNote: Note? = nil
     var clickedNoteIndex: Int? = nil
     let topOffset: CGFloat = 86
+    var isActiveNotes = true
     
     let sortByDate = 0
     let sortByTitle = 1
@@ -31,6 +32,8 @@ class NotesTableViewTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView(_:)), name: NotificationConstants.noteUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView(_:)), name: NotificationConstants.iNotesTabBarItemTapped, object: nil)
 
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress(_:)))
+        self.view.addGestureRecognizer(longPressRecognizer)
         
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -38,17 +41,22 @@ class NotesTableViewTableViewController: UITableViewController {
         searchContainerView.addSubview(searchController.searchBar)
         searchController.searchBar.delegate = self
     
-        let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
-        do{
-            self.intactNotesDataSource = try PersistanceService.context.fetch(fetchRequest)
-            self.currentNotesDataSource = self.intactNotesDataSource
-            self.originalSortedNotesDataSource = self.currentNotesDataSource.sorted(by: { $0.createdAt!.compare($1.createdAt!) == .orderedDescending })
-            self.currentNotesDataSource = self.originalSortedNotesDataSource
-            self.tableView.reloadData()
-        } catch{
-            
-        }
+        loadtableViewData()
 
+    }
+    func loadtableViewData(){
+        let activeNotesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
+                activeNotesFetchRequest.predicate = NSPredicate(format: "isActive == %@", NSNumber(value: true) as! CVarArg)
+        let archiveNotesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
+                do{
+                    self.intactActiveNotesDataSource = try PersistanceService.context.fetch(activeNotesFetchRequest)
+                    self.currentNotesDataSource = self.intactActiveNotesDataSource
+                    self.originalSortedNotesDataSource = self.currentNotesDataSource.sorted(by: { $0.createdAt!.compare($1.createdAt!) == .orderedDescending })
+                    self.currentNotesDataSource = self.originalSortedNotesDataSource
+                    self.tableView.reloadData()
+                } catch{
+                    
+                }
     }
 
     // MARK: - Table view data source
@@ -75,6 +83,60 @@ class NotesTableViewTableViewController: UITableViewController {
         self.performSegue(withIdentifier: "activeNoteCellClicked", sender: self)
     }
 
+    //Called, when long press occurred
+    @objc func longPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+
+            let touchPoint = longPressGestureRecognizer.location(in: self.view)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                showOptionsAlertController(indexPath: indexPath)
+            }
+        }
+    }
+    func showOptionsAlertController(indexPath: IndexPath) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+        // 2
+        let deleteAction = UIAlertAction(title: "Delete", style: .default) { (action) in
+            self.deleteNoteHandler(indexPath: indexPath)
+        }
+        // 3
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            
+        // 4
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+            
+        // 5
+        self.present(alert, animated: true, completion: nil)
+    }
+    func deleteNoteHandler(indexPath: IndexPath){
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
+        fetchRequest.predicate = NSPredicate(format: "noteID = %@", originalSortedNotesDataSource[indexPath.row].noteID!)
+
+        do{
+        let fetchResults = try PersistanceService.context.fetch(fetchRequest)
+            if fetchResults.count != 0 {
+                let managedObject: Note = fetchResults[0] as! Note
+                PersistanceService.context.delete(managedObject)
+                    
+                do {
+                    try PersistanceService.context.save()
+                }
+                catch {
+                        
+                }
+                //originalSortedNotesDataSource[indexPath.row].isActive = false
+                originalSortedNotesDataSource.remove(at: indexPath.row)
+                currentNotesDataSource = originalSortedNotesDataSource
+                self.tableView.reloadData()
+            }
+            
+        } catch{
+            
+        }
+    }
     @objc func reloadTableView(_ notification: Notification){
         //load data here
         switch notification.name {
@@ -96,7 +158,15 @@ class NotesTableViewTableViewController: UITableViewController {
             //currentNotesDataSource[data!["index"] as! Int] = data!["data"] as! Note
             self.tableView.reloadData()
         case NotificationConstants.iNotesTabBarItemTapped:
-            self.tableView.scrollRectToVisible(searchController.searchBar.frame, animated: true)
+            if isActiveNotes{
+                self.tableView.scrollRectToVisible(searchController.searchBar.frame, animated: true)
+            }
+            else{
+                self.isActiveNotes = true
+                self.loadtableViewData()
+                self.tableView.reloadData()
+            }
+            
         default:
             self.tableView.reloadData()
         }

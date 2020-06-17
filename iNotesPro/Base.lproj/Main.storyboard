@@ -189,10 +189,12 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sA1-uI-DgX">
                                         <rect key="frame" x="8" y="0.0" width="398" height="188"/>
                                         <subviews>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jki-do-CT4">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jki-do-CT4">
                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="188"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="jki-do-CT4" secondAttribute="height" multiplier="199:94" id="s3A-a0-SJq"/>
+                                                </constraints>
                                                 <state key="normal" title="Click here to select an image">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -202,7 +204,11 @@
                                             </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="jki-do-CT4" firstAttribute="bottom" secondItem="VX1-nu-zoE" secondAttribute="bottom" id="Jxg-io-6tX"/>
+                                            <constraint firstItem="jki-do-CT4" firstAttribute="trailing" secondItem="VX1-nu-zoE" secondAttribute="trailing" id="Xt1-3D-qTO"/>
                                             <constraint firstAttribute="width" secondItem="sA1-uI-DgX" secondAttribute="height" multiplier="199:94" id="aNL-BY-JLa"/>
+                                            <constraint firstItem="jki-do-CT4" firstAttribute="leading" secondItem="VX1-nu-zoE" secondAttribute="leading" id="lTX-P5-pnt"/>
+                                            <constraint firstItem="jki-do-CT4" firstAttribute="top" secondItem="VX1-nu-zoE" secondAttribute="top" id="yJp-jH-cBI"/>
                                         </constraints>
                                         <viewLayoutGuide key="contentLayoutGuide" id="sFH-Xm-uQS"/>
                                         <viewLayoutGuide key="frameLayoutGuide" id="VX1-nu-zoE"/>
@@ -210,8 +216,11 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cU-wj-mws">
                                         <rect key="frame" x="8" y="626" width="398" height="50"/>
                                         <subviews>
-                                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="UYW-ku-OdE">
-                                                <rect key="frame" x="28" y="10" width="343" height="31"/>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="UYW-ku-OdE">
+                                                <rect key="frame" x="27" y="10" width="344" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="340" id="MuK-HX-RmE"/>
+                                                </constraints>
                                             </slider>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -268,7 +277,7 @@
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="v1k-YI-oOA"/>
+                        <viewLayoutGuide key="safeArea" id="B1P-eA-hcM"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Note Details" id="33F-D1-cV6">
@@ -350,7 +359,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="0c4-fu-8nl"/>
-        <segue reference="AUe-KM-jd3"/>
+        <segue reference="WOy-Nb-Aqc"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="archivebox" catalog="system" width="128" height="106"/>

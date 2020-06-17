@@ -17,7 +17,7 @@
         <attribute name="noteID" attributeType="String" defaultValueString=""/>
         <attribute name="noteTitle" attributeType="String" defaultValueString=""/>
         <attribute name="updatedAt" attributeType="Date" defaultDateTimeInterval="613686300" usesScalarValueType="NO"/>
-        <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachments" inverseName="note" inverseEntity="Attachments"/>
+        <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Attachments" inverseName="note" inverseEntity="Attachments"/>
     </entity>
     <elements>
         <element name="Attachments" positionX="0" positionY="99" width="128" height="148"/>
