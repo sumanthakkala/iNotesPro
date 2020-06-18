@@ -241,9 +241,8 @@
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7BU-ia-fdf">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7BU-ia-fdf">
                                                 <rect key="frame" x="8" y="50" width="382" height="364"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -253,10 +252,14 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
+                                            <constraint firstItem="7BU-ia-fdf" firstAttribute="top" secondItem="Z24-BH-7OP" secondAttribute="bottom" constant="8" id="7kW-4a-xoF"/>
+                                            <constraint firstItem="7BU-ia-fdf" firstAttribute="leading" secondItem="bDg-uj-SwE" secondAttribute="leading" constant="8" id="A9Y-B2-L4X"/>
+                                            <constraint firstAttribute="bottom" secondItem="7BU-ia-fdf" secondAttribute="bottom" constant="8" id="B8y-fO-pc5"/>
                                             <constraint firstItem="Z24-BH-7OP" firstAttribute="leading" secondItem="bDg-uj-SwE" secondAttribute="leading" id="GGV-Tj-5IL"/>
                                             <constraint firstAttribute="trailing" secondItem="Z24-BH-7OP" secondAttribute="trailing" id="WRY-dF-9S4"/>
                                             <constraint firstItem="Z24-BH-7OP" firstAttribute="top" secondItem="bDg-uj-SwE" secondAttribute="top" constant="8" id="lwR-1e-QY9"/>
                                             <constraint firstAttribute="width" secondItem="bDg-uj-SwE" secondAttribute="height" multiplier="199:211" id="nHt-BH-Rns"/>
+                                            <constraint firstAttribute="trailing" secondItem="7BU-ia-fdf" secondAttribute="trailing" constant="8" id="vLu-fC-r2o"/>
                                         </constraints>
                                     </view>
                                 </subviews>

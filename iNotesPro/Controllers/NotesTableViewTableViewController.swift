@@ -138,7 +138,8 @@ class NotesTableViewTableViewController: UITableViewController {
         }
     }
     @objc func reloadTableView(_ notification: Notification){
-        //load data here
+        //load
+        
         switch notification.name {
         case NotificationConstants.noteCreated:
             let data = notification.userInfo as? [String: Note]
