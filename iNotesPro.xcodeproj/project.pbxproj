@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,14 @@
 		BD08A11F2499357400BCC181 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08A11B2499357400BCC181 /* Note+CoreDataProperties.swift */; };
 		BD08A1202499357400BCC181 /* Attachments+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08A11C2499357400BCC181 /* Attachments+CoreDataClass.swift */; };
 		BD08A1212499357400BCC181 /* Attachments+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08A11D2499357400BCC181 /* Attachments+CoreDataProperties.swift */; };
+		BD08A16D249B57F000BCC181 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BD08A16C249B57F000BCC181 /* Lottie */; };
+		BD08A16F249BD7B700BCC181 /* InfoPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08A16E249BD7B700BCC181 /* InfoPopoverViewController.swift */; };
+		BD08A173249BDC5C00BCC181 /* redFastBouncePin.json in Resources */ = {isa = PBXBuildFile; fileRef = BD08A171249BDC5B00BCC181 /* redFastBouncePin.json */; };
+		BD08A174249BDC5C00BCC181 /* greenBouncePin.json in Resources */ = {isa = PBXBuildFile; fileRef = BD08A172249BDC5C00BCC181 /* greenBouncePin.json */; };
+		BD08A17C249BF0AA00BCC181 /* fileEdit.json in Resources */ = {isa = PBXBuildFile; fileRef = BD08A17A249BF0AA00BCC181 /* fileEdit.json */; };
+		BD08A182249BF8F000BCC181 /* fileCreateFinal.json in Resources */ = {isa = PBXBuildFile; fileRef = BD08A181249BF8F000BCC181 /* fileCreateFinal.json */; };
+		BD08A185249C00DD00BCC181 /* trees.json in Resources */ = {isa = PBXBuildFile; fileRef = BD08A183249C00DD00BCC181 /* trees.json */; };
+		BD08A186249C00DD00BCC181 /* celebration.json in Resources */ = {isa = PBXBuildFile; fileRef = BD08A184249C00DD00BCC181 /* celebration.json */; };
 		BD93B7122491EED7009BE53E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B7112491EED7009BE53E /* AppDelegate.swift */; };
 		BD93B7142491EED7009BE53E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B7132491EED7009BE53E /* SceneDelegate.swift */; };
 		BD93B7182491EED7009BE53E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B7172491EED7009BE53E /* SecondViewController.swift */; };
@@ -34,6 +42,13 @@
 		BD08A11B2499357400BCC181 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "iNotesPro/Controllers/Note+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		BD08A11C2499357400BCC181 /* Attachments+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Attachments+CoreDataClass.swift"; path = "iNotesPro/Controllers/Attachments+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		BD08A11D2499357400BCC181 /* Attachments+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Attachments+CoreDataProperties.swift"; path = "iNotesPro/Controllers/Attachments+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		BD08A16E249BD7B700BCC181 /* InfoPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPopoverViewController.swift; sourceTree = "<group>"; };
+		BD08A171249BDC5B00BCC181 /* redFastBouncePin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = redFastBouncePin.json; sourceTree = "<group>"; };
+		BD08A172249BDC5C00BCC181 /* greenBouncePin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = greenBouncePin.json; sourceTree = "<group>"; };
+		BD08A17A249BF0AA00BCC181 /* fileEdit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fileEdit.json; sourceTree = "<group>"; };
+		BD08A181249BF8F000BCC181 /* fileCreateFinal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fileCreateFinal.json; sourceTree = "<group>"; };
+		BD08A183249C00DD00BCC181 /* trees.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trees.json; sourceTree = "<group>"; };
+		BD08A184249C00DD00BCC181 /* celebration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = celebration.json; sourceTree = "<group>"; };
 		BD93B70E2491EED7009BE53E /* iNotesPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNotesPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD93B7112491EED7009BE53E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD93B7132491EED7009BE53E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,12 +72,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD08A16D249B57F000BCC181 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD08A170249BDB4700BCC181 /* LottieFiles */ = {
+			isa = PBXGroup;
+			children = (
+				BD08A184249C00DD00BCC181 /* celebration.json */,
+				BD08A183249C00DD00BCC181 /* trees.json */,
+				BD08A181249BF8F000BCC181 /* fileCreateFinal.json */,
+				BD08A17A249BF0AA00BCC181 /* fileEdit.json */,
+				BD08A172249BDC5C00BCC181 /* greenBouncePin.json */,
+				BD08A171249BDC5B00BCC181 /* redFastBouncePin.json */,
+			);
+			path = LottieFiles;
+			sourceTree = "<group>";
+		};
 		BD93B7052491EED7009BE53E = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +111,7 @@
 		BD93B7102491EED7009BE53E /* iNotesPro */ = {
 			isa = PBXGroup;
 			children = (
+				BD08A170249BDB4700BCC181 /* LottieFiles */,
 				BD93B74D24956B8D009BE53E /* Constants */,
 				BD93B74A2494621F009BE53E /* Views */,
 				BD93B73124930FA6009BE53E /* DataModels */,
@@ -105,6 +135,7 @@
 				BD93B7172491EED7009BE53E /* SecondViewController.swift */,
 				BD93B72D24930805009BE53E /* NotesTableViewTableViewController.swift */,
 				BD93B7522496D0F1009BE53E /* TabBarController.swift */,
+				BD08A16E249BD7B700BCC181 /* InfoPopoverViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -154,6 +185,9 @@
 			dependencies = (
 			);
 			name = iNotesPro;
+			packageProductDependencies = (
+				BD08A16C249B57F000BCC181 /* Lottie */,
+			);
 			productName = iNotesPro;
 			productReference = BD93B70E2491EED7009BE53E /* iNotesPro.app */;
 			productType = "com.apple.product-type.application";
@@ -182,6 +216,9 @@
 				Base,
 			);
 			mainGroup = BD93B7052491EED7009BE53E;
+			packageReferences = (
+				BD08A16B249B57F000BCC181 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = BD93B70F2491EED7009BE53E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -196,7 +233,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD08A17C249BF0AA00BCC181 /* fileEdit.json in Resources */,
 				BD93B7232491EED9009BE53E /* LaunchScreen.storyboard in Resources */,
+				BD08A186249C00DD00BCC181 /* celebration.json in Resources */,
+				BD08A182249BF8F000BCC181 /* fileCreateFinal.json in Resources */,
+				BD08A185249C00DD00BCC181 /* trees.json in Resources */,
+				BD08A174249BDC5C00BCC181 /* greenBouncePin.json in Resources */,
+				BD08A173249BDC5C00BCC181 /* redFastBouncePin.json in Resources */,
 				BD93B7202491EED9009BE53E /* Assets.xcassets in Resources */,
 				BD93B71B2491EED7009BE53E /* Main.storyboard in Resources */,
 			);
@@ -219,6 +262,7 @@
 				BD08A1202499357400BCC181 /* Attachments+CoreDataClass.swift in Sources */,
 				BD93B74924941D67009BE53E /* iNotesPro.xcdatamodeld in Sources */,
 				BD08A11524992F6000BCC181 /* Attachments.swift in Sources */,
+				BD08A16F249BD7B700BCC181 /* InfoPopoverViewController.swift in Sources */,
 				BD08A11E2499357400BCC181 /* Note+CoreDataClass.swift in Sources */,
 				BD93B75924987C76009BE53E /* Tags.swift in Sources */,
 				BD93B74C24946248009BE53E /* NotesTableViewCell.swift in Sources */,
@@ -283,6 +327,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -343,6 +388,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -369,14 +415,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y88GS2HUZY;
 				INFOPLIST_FILE = iNotesPro/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = SwiftMADT.iNotesPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -387,14 +436,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y88GS2HUZY;
 				INFOPLIST_FILE = iNotesPro/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = SwiftMADT.iNotesPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -422,6 +474,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BD08A16B249B57F000BCC181 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BD08A16C249B57F000BCC181 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD08A16B249B57F000BCC181 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		BD93B74524941B74009BE53E /* iNotesPro.xcdatamodeld */ = {

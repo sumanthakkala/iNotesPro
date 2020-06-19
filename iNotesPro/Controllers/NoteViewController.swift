@@ -97,6 +97,8 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate {
                 noteData?.noteDescription = noteDescription.text!
                 managedObject.setValue(noteTitle.text!, forKey: "noteTitle")
                 managedObject.setValue(noteDescription.text!, forKey: "noteDescription")
+                managedObject.setValue(Date(), forKey: "updatedAt")
+
 
                 let images = imageScrollView.subviews.filter{ ($0 is UIImageView) }
                 let imagesToSave = images.filter{ ($0 as! UIImageView).tag == TagConstants.pickedImage }

@@ -16,16 +16,19 @@ class NotesTableViewTableViewController: UITableViewController {
     var currentNotesDataSource = [Note]()
     var clickedNote: Note? = nil
     var clickedNoteIndex: Int? = nil
+    var clickedInfoButtonIndex: Int? = nil
     let topOffset: CGFloat = 86
     var isActiveNotes = true
     
     let sortByDate = 0
     let sortByTitle = 1
     var selectedSortMode = 0
+    
 
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var sortBtn: UIBarButtonItem!
     var searchController: UISearchController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView(_:)), name: NotificationConstants.noteCreated, object: nil)
@@ -41,6 +44,7 @@ class NotesTableViewTableViewController: UITableViewController {
         searchContainerView.addSubview(searchController.searchBar)
         searchController.searchBar.delegate = self
     
+        
         loadtableViewData()
 
     }
@@ -74,6 +78,17 @@ class NotesTableViewTableViewController: UITableViewController {
 
         cell.noteCellTitle?.text = currentNotesDataSource[indexPath.row].noteTitle
         cell.noteCellDescription?.text = currentNotesDataSource[indexPath.row].noteDescription
+        cell.noteCreatedDate?.text = currentNotesDataSource[indexPath.row].createdAt?.getFormattedDate(format: "MMM d, yy")
+        //cell.layer.borderWidth = 0.5
+        cell.layer.cornerRadius = 10
+        cell.layer.masksToBounds = true
+        //cell.layer.shadowOffset = CGSize(width: -1, height: 1)
+//        cell.infoButtonAction = { sender in
+//            // Do whatever you want from your button here.
+//            self.clickedInfoButtonIndex = indexPath.row
+//        }
+        cell.infoButton.tag = indexPath.row
+
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -183,6 +198,11 @@ class NotesTableViewTableViewController: UITableViewController {
             destination?.noteData = self.clickedNote
             destination?.noteIndex = self.clickedNoteIndex
         }
+        if segue.identifier == "infoPopover"
+        {
+            let destination = segue.destination as? InfoPopoverViewController
+            destination?.note = self.currentNotesDataSource[(sender as! UIButton).tag]
+        }
     }
     
     @IBAction func sortClicked(_ sender: UIBarButtonItem) {
@@ -208,6 +228,7 @@ class NotesTableViewTableViewController: UITableViewController {
         else{
             self.currentNotesDataSource.sort(by: { $0.noteTitle!.lowercased() < $1.noteTitle!.lowercased() })
             self.originalSortedNotesDataSource = self.currentNotesDataSource
+            
             self.tableView.reloadData()
         }
     }
@@ -254,4 +275,12 @@ extension NotesTableViewTableViewController: UISearchBarDelegate{
 //        }
         restoreCurrentDataSource()
     }
+}
+
+extension Date {
+    func getFormattedDate(format: String) -> String {
+         let dateformat = DateFormatter()
+         dateformat.dateFormat = format
+         return dateformat.string(from: self)
+     }
 }

@@ -12,6 +12,8 @@ class NotesTableViewCell: UITableViewCell {
 
     @IBOutlet weak var noteCellTitle: UILabel!
     @IBOutlet weak var noteCellDescription: UILabel!
+    @IBOutlet weak var noteCreatedDate: UILabel!
+    @IBOutlet weak var infoButton: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,6 +23,11 @@ class NotesTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    var infoButtonAction: ((Any) -> Void)?
+
+    @objc func infoButtonPressed(sender: Any) {
+        self.infoButtonAction?(sender)
     }
 
 }
