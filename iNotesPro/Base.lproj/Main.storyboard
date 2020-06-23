@@ -67,7 +67,7 @@
                             <color key="backgroundColor" red="0.94681185479999996" green="0.95972424749999996" blue="0.9833641648" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="activeNotesTableCell" focusStyle="custom" rowHeight="92.5" translatesAutoresizingMaskIntoConstraints="NO" id="yoM-lL-OWu" customClass="NotesTableViewCell" customModule="iNotesPro" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="activeNotesTableCell" focusStyle="custom" rowHeight="92.5" translatesAutoresizingMaskIntoConstraints="NO" id="yoM-lL-OWu" customClass="NotesTableViewCell" customModule="iNotesPro" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="109.5" width="414" height="92.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yoM-lL-OWu" id="ZYN-66-28L">
@@ -279,7 +279,7 @@
         <!--Note Details-->
         <scene sceneID="u8g-V1-n4D">
             <objects>
-                <viewController id="UTq-Se-o2b" customClass="NoteViewController" customModule="iNotesPro" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="noteDetailOrCreateView" id="UTq-Se-o2b" customClass="NoteViewController" customModule="iNotesPro" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cxI-DH-vgL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -328,23 +328,6 @@
                                         <viewLayoutGuide key="contentLayoutGuide" id="sFH-Xm-uQS"/>
                                         <viewLayoutGuide key="frameLayoutGuide" id="VX1-nu-zoE"/>
                                     </scrollView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cU-wj-mws">
-                                        <rect key="frame" x="8" y="626" width="398" height="50"/>
-                                        <subviews>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="UYW-ku-OdE">
-                                                <rect key="frame" x="27" y="10" width="344" height="31"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="340" id="MuK-HX-RmE"/>
-                                                </constraints>
-                                            </slider>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="9cU-wj-mws" secondAttribute="height" multiplier="199:25" id="3nK-E9-Hiv"/>
-                                            <constraint firstItem="UYW-ku-OdE" firstAttribute="centerY" secondItem="9cU-wj-mws" secondAttribute="centerY" id="dRx-MY-plT"/>
-                                            <constraint firstItem="UYW-ku-OdE" firstAttribute="centerX" secondItem="9cU-wj-mws" secondAttribute="centerX" id="ehn-hG-UEy"/>
-                                        </constraints>
-                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDg-uj-SwE">
                                         <rect key="frame" x="8" y="196" width="398" height="422"/>
                                         <subviews>
@@ -378,18 +361,41 @@
                                             <constraint firstAttribute="trailing" secondItem="7BU-ia-fdf" secondAttribute="trailing" constant="8" id="vLu-fC-r2o"/>
                                         </constraints>
                                     </view>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DES-nJ-SvP">
+                                        <rect key="frame" x="8" y="626" width="398" height="50"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOF-QZ-ieq">
+                                                <rect key="frame" x="174" y="0.0" width="50" height="50"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="TOZ-iQ-iAm"/>
+                                                    <constraint firstAttribute="width" constant="50" id="zL4-pv-qDA"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="FnK-R6-ZaE"/>
+                                            <constraint firstItem="BOF-QZ-ieq" firstAttribute="top" secondItem="IWM-HM-drF" secondAttribute="top" id="S7I-LK-nMW"/>
+                                            <constraint firstItem="BOF-QZ-ieq" firstAttribute="bottom" secondItem="IWM-HM-drF" secondAttribute="bottom" id="dLg-eS-JxO"/>
+                                            <constraint firstItem="IWM-HM-drF" firstAttribute="trailing" secondItem="BOF-QZ-ieq" secondAttribute="trailing" constant="174" id="lMS-DY-kCx"/>
+                                            <constraint firstAttribute="width" constant="398" id="lhI-Ty-7DI"/>
+                                            <constraint firstItem="BOF-QZ-ieq" firstAttribute="leading" secondItem="IWM-HM-drF" secondAttribute="leading" constant="174" id="zUl-iZ-7qh"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="contentLayoutGuide" id="yAk-Kp-L2n"/>
+                                        <viewLayoutGuide key="frameLayoutGuide" id="IWM-HM-drF"/>
+                                    </scrollView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="9cU-wj-mws" firstAttribute="leading" secondItem="T6y-r3-sT5" secondAttribute="leading" constant="8" id="3dY-a7-iXf"/>
-                                    <constraint firstItem="9cU-wj-mws" firstAttribute="top" secondItem="bDg-uj-SwE" secondAttribute="bottom" constant="8" id="3lG-5c-HYK"/>
+                                    <constraint firstItem="T6y-r3-sT5" firstAttribute="trailing" secondItem="DES-nJ-SvP" secondAttribute="trailing" constant="8" id="M2i-Ma-nlD"/>
                                     <constraint firstItem="sA1-uI-DgX" firstAttribute="leading" secondItem="T6y-r3-sT5" secondAttribute="leading" constant="8" id="NU8-j1-6JV"/>
+                                    <constraint firstItem="DES-nJ-SvP" firstAttribute="leading" secondItem="T6y-r3-sT5" secondAttribute="leading" constant="8" id="Pn3-Ev-zQf"/>
                                     <constraint firstItem="bDg-uj-SwE" firstAttribute="top" secondItem="sA1-uI-DgX" secondAttribute="bottom" constant="8" id="Qst-6T-Ea2"/>
                                     <constraint firstItem="sA1-uI-DgX" firstAttribute="top" secondItem="T6y-r3-sT5" secondAttribute="top" id="Y9N-sL-l5Z"/>
+                                    <constraint firstItem="DES-nJ-SvP" firstAttribute="bottom" secondItem="T6y-r3-sT5" secondAttribute="bottom" id="avd-i4-2ll"/>
                                     <constraint firstItem="bDg-uj-SwE" firstAttribute="leading" secondItem="T6y-r3-sT5" secondAttribute="leading" constant="8" id="eal-Cu-0TE"/>
-                                    <constraint firstItem="9cU-wj-mws" firstAttribute="bottom" secondItem="T6y-r3-sT5" secondAttribute="bottom" id="iRH-US-rk2"/>
+                                    <constraint firstItem="DES-nJ-SvP" firstAttribute="top" secondItem="bDg-uj-SwE" secondAttribute="bottom" constant="8" id="hvK-R5-aiQ"/>
                                     <constraint firstItem="T6y-r3-sT5" firstAttribute="trailing" secondItem="bDg-uj-SwE" secondAttribute="trailing" constant="8" id="p0f-6x-fxc"/>
                                     <constraint firstItem="T6y-r3-sT5" firstAttribute="trailing" secondItem="sA1-uI-DgX" secondAttribute="trailing" constant="8" id="s8N-q4-XH1"/>
-                                    <constraint firstItem="T6y-r3-sT5" firstAttribute="trailing" secondItem="9cU-wj-mws" secondAttribute="trailing" constant="8" id="vYr-Wc-CkK"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="f7j-gl-EG5"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="T6y-r3-sT5"/>
@@ -409,7 +415,8 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="audioContainerView" destination="9cU-wj-mws" id="r9d-sz-aqE"/>
+                        <outlet property="audioContainerScrollView" destination="DES-nJ-SvP" id="vUa-No-WWO"/>
+                        <outlet property="audioRecorderControlUIView" destination="BOF-QZ-ieq" id="fw7-6T-t8x"/>
                         <outlet property="entireScrollView" destination="hPY-yL-dcy" id="cYS-G6-abN"/>
                         <outlet property="imageScrollView" destination="sA1-uI-DgX" id="Kng-7i-MDI"/>
                         <outlet property="noteDescription" destination="7BU-ia-fdf" id="Nfm-g2-ueN"/>

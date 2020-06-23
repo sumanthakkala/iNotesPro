@@ -9,6 +9,15 @@
         <attribute name="updatedAt" optional="YES" attributeType="Date" defaultDateTimeInterval="613972500" usesScalarValueType="NO"/>
         <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="attachments" inverseEntity="Note"/>
     </entity>
+    <entity name="AudioAttachments" representedClassName="AudioAttachments" syncable="YES">
+        <attribute name="attachmentID" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="attachmentType" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="attachmentURL" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" defaultDateTimeInterval="614554560" usesScalarValueType="NO"/>
+        <attribute name="noteID" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" defaultDateTimeInterval="614554560" usesScalarValueType="NO"/>
+        <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="audioAttachments" inverseEntity="Note"/>
+    </entity>
     <entity name="Note" representedClassName="Note" syncable="YES">
         <attribute name="createdAt" attributeType="Date" defaultDateTimeInterval="613686360" usesScalarValueType="NO"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
@@ -18,9 +27,11 @@
         <attribute name="noteTitle" attributeType="String" defaultValueString=""/>
         <attribute name="updatedAt" attributeType="Date" defaultDateTimeInterval="613686300" usesScalarValueType="NO"/>
         <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Attachments" inverseName="note" inverseEntity="Attachments"/>
+        <relationship name="audioAttachments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AudioAttachments" inverseName="note" inverseEntity="AudioAttachments"/>
     </entity>
     <elements>
         <element name="Attachments" positionX="0" positionY="99" width="128" height="148"/>
-        <element name="Note" positionX="-36" positionY="9" width="128" height="163"/>
+        <element name="Note" positionX="-36" positionY="9" width="128" height="178"/>
+        <element name="AudioAttachments" positionX="-9" positionY="126" width="128" height="148"/>
     </elements>
 </model>

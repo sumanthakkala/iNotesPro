@@ -20,6 +20,11 @@
 		BD08A182249BF8F000BCC181 /* fileCreateFinal.json in Resources */ = {isa = PBXBuildFile; fileRef = BD08A181249BF8F000BCC181 /* fileCreateFinal.json */; };
 		BD08A185249C00DD00BCC181 /* trees.json in Resources */ = {isa = PBXBuildFile; fileRef = BD08A183249C00DD00BCC181 /* trees.json */; };
 		BD08A186249C00DD00BCC181 /* celebration.json in Resources */ = {isa = PBXBuildFile; fileRef = BD08A184249C00DD00BCC181 /* celebration.json */; };
+		BD30095C24A145C90057AB6A /* audioRecording.json in Resources */ = {isa = PBXBuildFile; fileRef = BD30095B24A145C90057AB6A /* audioRecording.json */; };
+		BD30096B24A15CCA0057AB6A /* AudioAttachments+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD30096924A15CCA0057AB6A /* AudioAttachments+CoreDataClass.swift */; };
+		BD30096C24A15CCA0057AB6A /* AudioAttachments+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD30096A24A15CCA0057AB6A /* AudioAttachments+CoreDataProperties.swift */; };
+		BD30097A24A168860057AB6A /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD30097924A168860057AB6A /* AudioPlayerView.swift */; };
+		BD30097C24A168970057AB6A /* AudioPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD30097B24A168970057AB6A /* AudioPlayerView.xib */; };
 		BD93B7122491EED7009BE53E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B7112491EED7009BE53E /* AppDelegate.swift */; };
 		BD93B7142491EED7009BE53E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B7132491EED7009BE53E /* SceneDelegate.swift */; };
 		BD93B7182491EED7009BE53E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93B7172491EED7009BE53E /* SecondViewController.swift */; };
@@ -49,6 +54,11 @@
 		BD08A181249BF8F000BCC181 /* fileCreateFinal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fileCreateFinal.json; sourceTree = "<group>"; };
 		BD08A183249C00DD00BCC181 /* trees.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trees.json; sourceTree = "<group>"; };
 		BD08A184249C00DD00BCC181 /* celebration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = celebration.json; sourceTree = "<group>"; };
+		BD30095B24A145C90057AB6A /* audioRecording.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = audioRecording.json; sourceTree = "<group>"; };
+		BD30096924A15CCA0057AB6A /* AudioAttachments+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioAttachments+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BD30096A24A15CCA0057AB6A /* AudioAttachments+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioAttachments+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BD30097924A168860057AB6A /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
+		BD30097B24A168970057AB6A /* AudioPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioPlayerView.xib; sourceTree = "<group>"; };
 		BD93B70E2491EED7009BE53E /* iNotesPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNotesPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD93B7112491EED7009BE53E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD93B7132491EED7009BE53E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +92,7 @@
 		BD08A170249BDB4700BCC181 /* LottieFiles */ = {
 			isa = PBXGroup;
 			children = (
+				BD30095B24A145C90057AB6A /* audioRecording.json */,
 				BD08A184249C00DD00BCC181 /* celebration.json */,
 				BD08A183249C00DD00BCC181 /* trees.json */,
 				BD08A181249BF8F000BCC181 /* fileCreateFinal.json */,
@@ -143,6 +154,8 @@
 		BD93B73124930FA6009BE53E /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				BD30096924A15CCA0057AB6A /* AudioAttachments+CoreDataClass.swift */,
+				BD30096A24A15CCA0057AB6A /* AudioAttachments+CoreDataProperties.swift */,
 				BD08A11A2499357400BCC181 /* Note+CoreDataClass.swift */,
 				BD08A11B2499357400BCC181 /* Note+CoreDataProperties.swift */,
 				BD08A11C2499357400BCC181 /* Attachments+CoreDataClass.swift */,
@@ -155,6 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				BD93B74B24946248009BE53E /* NotesTableViewCell.swift */,
+				BD30097924A168860057AB6A /* AudioPlayerView.swift */,
+				BD30097B24A168970057AB6A /* AudioPlayerView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,11 +251,13 @@
 				BD08A17C249BF0AA00BCC181 /* fileEdit.json in Resources */,
 				BD93B7232491EED9009BE53E /* LaunchScreen.storyboard in Resources */,
 				BD08A186249C00DD00BCC181 /* celebration.json in Resources */,
+				BD30097C24A168970057AB6A /* AudioPlayerView.xib in Resources */,
 				BD08A182249BF8F000BCC181 /* fileCreateFinal.json in Resources */,
 				BD08A185249C00DD00BCC181 /* trees.json in Resources */,
 				BD08A174249BDC5C00BCC181 /* greenBouncePin.json in Resources */,
 				BD08A173249BDC5C00BCC181 /* redFastBouncePin.json in Resources */,
 				BD93B7202491EED9009BE53E /* Assets.xcassets in Resources */,
+				BD30095C24A145C90057AB6A /* audioRecording.json in Resources */,
 				BD93B71B2491EED7009BE53E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +274,7 @@
 				BD93B7122491EED7009BE53E /* AppDelegate.swift in Sources */,
 				BD93B72B24930670009BE53E /* NoteViewController.swift in Sources */,
 				BD93B7142491EED7009BE53E /* SceneDelegate.swift in Sources */,
+				BD30096B24A15CCA0057AB6A /* AudioAttachments+CoreDataClass.swift in Sources */,
 				BD93B73024930A5F009BE53E /* PersistanceService.swift in Sources */,
 				BD08A1212499357400BCC181 /* Attachments+CoreDataProperties.swift in Sources */,
 				BD08A1202499357400BCC181 /* Attachments+CoreDataClass.swift in Sources */,
@@ -265,10 +283,12 @@
 				BD08A16F249BD7B700BCC181 /* InfoPopoverViewController.swift in Sources */,
 				BD08A11E2499357400BCC181 /* Note+CoreDataClass.swift in Sources */,
 				BD93B75924987C76009BE53E /* Tags.swift in Sources */,
+				BD30097A24A168860057AB6A /* AudioPlayerView.swift in Sources */,
 				BD93B74C24946248009BE53E /* NotesTableViewCell.swift in Sources */,
 				BD93B74F24956BA4009BE53E /* Notification.swift in Sources */,
 				BD93B7532496D0F1009BE53E /* TabBarController.swift in Sources */,
 				BD93B72E24930805009BE53E /* NotesTableViewTableViewController.swift in Sources */,
+				BD30096C24A15CCA0057AB6A /* AudioAttachments+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

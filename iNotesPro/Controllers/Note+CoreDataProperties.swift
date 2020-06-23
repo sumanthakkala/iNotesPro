@@ -2,7 +2,7 @@
 //  Note+CoreDataProperties.swift
 //  iNotesPro
 //
-//  Created by Nirmal Sumanth on 16/06/20.
+//  Created by Nirmal Sumanth on 22/06/20.
 //  Copyright © 2020 Nirmal Sumanth. All rights reserved.
 //
 //
@@ -25,13 +25,22 @@ extension Note {
     @NSManaged public var noteTitle: String?
     @NSManaged public var updatedAt: Date?
     @NSManaged public var attachments: NSSet?
-
+    @NSManaged public var audioAttachments: NSSet?
+    
     public var attachmentsArray: [Attachments] {
         let set = attachments as? Set<Attachments> ?? []
         return set.sorted{
             $0.createdAt!.compare($1.createdAt!) == .orderedAscending
         }
     }
+    
+    public var audioAttachmentsArray: [AudioAttachments] {
+        let set = attachments as? Set<AudioAttachments> ?? []
+        return set.sorted{
+            $0.createdAt!.compare($1.createdAt!) == .orderedAscending
+        }
+    }
+
 }
 
 // MARK: Generated accessors for attachments
@@ -48,5 +57,22 @@ extension Note {
 
     @objc(removeAttachments:)
     @NSManaged public func removeFromAttachments(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for audioAttachments
+extension Note {
+
+    @objc(addAudioAttachmentsObject:)
+    @NSManaged public func addToAudioAttachments(_ value: AudioAttachments)
+
+    @objc(removeAudioAttachmentsObject:)
+    @NSManaged public func removeFromAudioAttachments(_ value: AudioAttachments)
+
+    @objc(addAudioAttachments:)
+    @NSManaged public func addToAudioAttachments(_ values: NSSet)
+
+    @objc(removeAudioAttachments:)
+    @NSManaged public func removeFromAudioAttachments(_ values: NSSet)
 
 }
