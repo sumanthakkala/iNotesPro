@@ -12,7 +12,7 @@ import CoreLocation
 import Lottie
 import AVFoundation
 
-class NoteViewController: UIViewController, CLLocationManagerDelegate {
+class NoteViewController: UIViewController, CLLocationManagerDelegate, CALayerDelegate, UIScrollViewDelegate {
     let locationManager = CLLocationManager()
 
     @IBOutlet weak var entireScrollView: UIScrollView!
@@ -46,13 +46,45 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate {
     var totalRecordingsData = [Data]()
     var audiosIndexForSlider = 0
     var currentAudioPlayerView = AudioPlayerView()
-    
+    private var gradient: CAGradientLayer!
     var addedImages = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.isAtTop {
+            self.applyGradient_To(state: "Bot")
+        } else if scrollView.isAtBottom {
+            self.applyGradient_To(state: "Top")
+        } else {
+            self.applyGradient_To(state: "Both")
+        }
+    }
+    
+    func applyGradient_To (state: String) {
+        let gradient = CAGradientLayer()
+        gradient.frame = self.noteDescription!.bounds
+
+        switch state {
+        case "Top":
+            gradient.colors = [UIColor.clear.cgColor,UIColor.white.cgColor]
+            gradient.locations = [0.0,0.2]
+        case "Bot":
+            gradient.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
+            gradient.locations = [0.8,1.0]
+        default:
+            gradient.colors = [UIColor.clear.cgColor,UIColor.white.cgColor,UIColor.white.cgColor, UIColor.clear.cgColor]
+            gradient.locations = [0, 0.2, 0.8, 1]
+        }
+        self.noteDescription!.layer.mask = nil
+        self.noteDescription!.layer.mask = gradient
     }
     
     func setupView(){
@@ -70,7 +102,7 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate {
         noteID = noteData!.noteID!
         noteTitle.text = noteData?.noteTitle
         noteDescription.text = noteData?.noteDescription
-        var existingImages = noteData!.attachmentsArray.filter{
+        let existingImages = noteData!.attachmentsArray.filter{
             $0.attachmentType == AttachmentConstants.image
         }
         for attachment in existingImages {
@@ -83,10 +115,20 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate {
             totalRecordingsData.append(recording.attachmentBinary!)
         }
         addExistingAudiosUI(existingAudios: existingRecordings)
+        gradient = CAGradientLayer()
+        gradient.frame = noteDescription.bounds
+        gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.clear.cgColor]
+        gradient.locations = [0, 0, 0.8, 1]
+        noteDescription.layer.mask = gradient
     }
     func setupNewViewItems(){
         setupLocationManager()
         noteID = UUID().uuidString
+        gradient = CAGradientLayer()
+        gradient.frame = noteDescription.bounds
+        gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.clear.cgColor]
+        gradient.locations = [0, 0, 0.8, 1]
+        noteDescription.layer.mask = gradient
     }
     func setupLocationManager(){
         self.locationManager.requestAlwaysAuthorization()
@@ -112,7 +154,7 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func noteSave(_ sender: UIBarButtonItem) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
-        fetchRequest.predicate = NSPredicate(format: "noteID = %@", noteData?.noteID! as! CVarArg)
+        fetchRequest.predicate = NSPredicate(format: "noteID = %@", noteData?.noteID as! CVarArg)
 
         do{
         let fetchResults = try PersistanceService.context.fetch(fetchRequest)
@@ -452,7 +494,7 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     func addExistingAudiosUI(existingAudios: [Attachments]){
         if existingAudios.count != 0 {
             audioRecorderControlUIView.removeFromSuperview()
-            for audio in existingAudios{
+            for _ in existingAudios{
                 let audioPlayerView = AudioPlayerView.loadViewFromNib()
                     audioPlayerView.frame = CGRect(x: audioScrollXPosition, y: 0, width: 398, height: 50)
                     audioPlayerView.audioSlider.minimumValue = Float(0.0)
@@ -526,7 +568,6 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     func setupPlayerAndPlayAudio(sender: AnyObject){
         do{
-            let senderLable = getLabelFromAudioCOntrollerView(sender: sender)
             currentPlayPauseBtn = getPlayPauseBtnFromAudioCOntrollerView(sender: sender)
             let index = Int(getLabelFromAudioCOntrollerView(sender: sender).text!)
             if (sender.superview as! AudioPlayerView).tag == TagConstants.recorderAudio{
@@ -539,7 +580,7 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
             audioPlayer.delegate = self
             currentAudioSlider = getSliderFromAudioCOntrollerView(sender: sender)
             currentAudioSlider.maximumValue = Float(audioPlayer.duration)
-            var timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateSLider), userInfo: nil, repeats: true)
+            _ = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateSLider), userInfo: nil, repeats: true)
             audioPlayer.play()
             isPlaybackRunning = true
         }
@@ -562,7 +603,6 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     }
     
     func getLabelFromAudioCOntrollerView(sender: AnyObject) -> UILabel{
-        print(sender.superview?.subviews.count)
         return sender.superview?.subviews.first(where: {$0 is UILabel}) as! UILabel
     }
     
@@ -586,4 +626,29 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         currentPlayPauseBtn.setImage(UIImage(systemName: "play.fill"), for: .normal)
         currentPlayPauseBtn.tag = 0
     }
+}
+
+extension UIScrollView {
+
+    var isAtTop: Bool {
+        return contentOffset.y <= verticalOffsetForTop
+    }
+
+    var isAtBottom: Bool {
+        return contentOffset.y >= verticalOffsetForBottom
+    }
+
+    var verticalOffsetForTop: CGFloat {
+        let topInset = contentInset.top
+        return -topInset
+    }
+
+    var verticalOffsetForBottom: CGFloat {
+        let scrollViewHeight = bounds.height
+        let scrollContentSizeHeight = contentSize.height
+        let bottomInset = contentInset.bottom
+        let scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight
+        return scrollViewBottomOffset
+    }
+
 }

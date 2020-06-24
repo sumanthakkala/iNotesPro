@@ -51,7 +51,6 @@ class NotesTableViewTableViewController: UITableViewController {
     func loadtableViewData(){
         let activeNotesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
                 activeNotesFetchRequest.predicate = NSPredicate(format: "isActive == %@", NSNumber(value: true) as! CVarArg)
-        let archiveNotesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
                 do{
                     self.intactActiveNotesDataSource = try PersistanceService.context.fetch(activeNotesFetchRequest)
                     self.currentNotesDataSource = self.intactActiveNotesDataSource
