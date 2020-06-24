@@ -39,8 +39,8 @@
                         <constraint firstAttribute="width" constant="20" id="ciu-kR-Xrk"/>
                     </constraints>
                     <color key="tintColor" red="0.063975267109999998" green="0.098720662299999998" blue="0.22449910640000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" image="trash.fill" catalog="system">
-                        <color key="titleColor" red="0.063975267109999998" green="0.098720662299999998" blue="0.22449910640000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" image="music.note" catalog="system">
+                        <color key="titleColor" red="0.061399534339999999" green="0.098657019439999993" blue="0.22487729789999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" red="0.063975267109999998" green="0.098720662299999998" blue="0.22449910640000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
@@ -65,8 +65,8 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="audioIndexIntTotalAudios" destination="iKC-j8-RB9" id="RSK-th-LyQ"/>
                 <outlet property="audioSlider" destination="zqi-SQ-Hbc" id="5ew-iK-bKK"/>
-                <outlet property="audioURL" destination="iKC-j8-RB9" id="IBm-Fz-s1S"/>
                 <outlet property="deleteAudio" destination="789-no-7ud" id="Urf-lT-9kR"/>
                 <outlet property="playAudio" destination="QpB-aC-Rkw" id="o3U-ST-5mX"/>
             </connections>
@@ -74,7 +74,7 @@
         </view>
     </objects>
     <resources>
+        <image name="music.note" catalog="system" width="97" height="128"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
-        <image name="trash.fill" catalog="system" width="121" height="128"/>
     </resources>
 </document>

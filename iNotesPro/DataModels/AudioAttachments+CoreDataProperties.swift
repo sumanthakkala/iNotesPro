@@ -2,7 +2,7 @@
 //  AudioAttachments+CoreDataProperties.swift
 //  iNotesPro
 //
-//  Created by Nirmal Sumanth on 22/06/20.
+//  Created by Nirmal Sumanth on 23/06/20.
 //  Copyright © 2020 Nirmal Sumanth. All rights reserved.
 //
 //
@@ -23,6 +23,6 @@ extension AudioAttachments {
     @NSManaged public var attachmentType: String?
     @NSManaged public var noteID: String?
     @NSManaged public var attachmentURL: String?
-    @NSManaged public var note: Note?
+    @NSManaged public var noteAudios: Note?
 
 }

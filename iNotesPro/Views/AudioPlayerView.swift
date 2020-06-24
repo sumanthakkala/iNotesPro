@@ -12,7 +12,7 @@ class AudioPlayerView: UIView {
     @IBOutlet weak var playAudio: UIButton!
     @IBOutlet weak var deleteAudio: UIButton!
     @IBOutlet weak var audioSlider: UISlider!
-    @IBOutlet weak var audioURL: UILabel!
+    @IBOutlet weak var audioIndexIntTotalAudios: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

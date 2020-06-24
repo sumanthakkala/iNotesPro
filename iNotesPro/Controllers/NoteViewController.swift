@@ -41,8 +41,10 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate {
     var currentAudioSlider = UISlider()
     var currentPlayPauseBtn = UIButton()
     var audioCount = 0
-    var recordingsURLsToSave = [String]()
-    
+    var recordingsDataToSave = [Data]()
+    var existingRecordings = [Attachments]()
+    var totalRecordingsData = [Data]()
+    var audiosIndexForSlider = 0
     var currentAudioPlayerView = AudioPlayerView()
     
     var addedImages = [UIImage]()
@@ -65,22 +67,22 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate {
     }
     func setupEditViewItems(){
         
-        //noteDescription.isScrollEnabled = false
         noteID = noteData!.noteID!
         noteTitle.text = noteData?.noteTitle
         noteDescription.text = noteData?.noteDescription
-        for attachment in noteData!.attachmentsArray {
+        var existingImages = noteData!.attachmentsArray.filter{
+            $0.attachmentType == AttachmentConstants.image
+        }
+        for attachment in existingImages {
             handleImage(image: UIImage(data: attachment.attachmentBinary!)!, imageTag: TagConstants.savedImage)
         }
-        
-//        noteDescription.translatesAutoresizingMaskIntoConstraints = false
-//        [
-//            noteDescription.topAnchor.constraint(equalTo: noteTitle.bottomAnchor),
-//            noteDescription.leadingAnchor.constraint(equalTo: titleAndDescriptionContainerView.leadingAnchor),
-//            noteDescription.trailingAnchor.constraint(equalTo: titleAndDescriptionContainerView.trailingAnchor),
-//            noteDescription.heightAnchor.constraint(equalToConstant: 50)
-//            ].forEach{ $0.isActive = true }
-        //textViewDidChange(noteDescription)
+        existingRecordings = noteData!.attachmentsArray.filter{
+            $0.attachmentType == AttachmentConstants.audio
+        }
+        for recording in existingRecordings{
+            totalRecordingsData.append(recording.attachmentBinary!)
+        }
+        addExistingAudiosUI(existingAudios: existingRecordings)
     }
     func setupNewViewItems(){
         setupLocationManager()
@@ -139,6 +141,19 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate {
                         noteData!.addToAttachments(attachment)
                     }
                 }
+                if recordingsDataToSave.count > 0{
+                    for audio in recordingsDataToSave {
+                        let audioAttachment = Attachments(context: PersistanceService.context)
+                        audioAttachment.attachmentID = UUID().uuidString
+                        audioAttachment.noteID = noteData!.noteID
+                        audioAttachment.attachmentBinary = audio
+                        audioAttachment.createdAt = Date()
+                        audioAttachment.updatedAt = Date()
+                        audioAttachment.attachmentType = AttachmentConstants.audio
+                        noteData!.addToAttachments(audioAttachment)
+                    }
+                    
+                }
                     
                 do {
                     try PersistanceService.context.save()
@@ -186,6 +201,20 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate {
                     attachment.updatedAt = Date()
                     attachment.attachmentType = AttachmentConstants.image
                     note.addToAttachments(attachment)
+                }
+                
+            }
+            
+            if recordingsDataToSave.count > 0{
+                for audio in recordingsDataToSave {
+                    let audioAttachment = Attachments(context: PersistanceService.context)
+                    audioAttachment.attachmentID = UUID().uuidString
+                    audioAttachment.noteID = note.noteID
+                    audioAttachment.attachmentBinary = audio
+                    audioAttachment.createdAt = Date()
+                    audioAttachment.updatedAt = Date()
+                    audioAttachment.attachmentType = AttachmentConstants.audio
+                    note.addToAttachments(audioAttachment)
                 }
                 
             }
@@ -288,9 +317,9 @@ extension NoteViewController: UIImagePickerControllerDelegate, UINavigationContr
         addBtn.frame.origin.y = 10
         
         
-//        xPosition = xPosition + addBtn.frame.width + spacer
         addBtn.setImage(boldSearch, for: .normal)
         addBtn.backgroundColor = UIColor.systemBackground
+        addBtn.tintColor = noteTitle.textColor
         
         //tag is set to 1 if it is add image button
         addBtn.tag = TagConstants.addImageBtn
@@ -311,21 +340,6 @@ extension NoteViewController: UIImagePickerControllerDelegate, UINavigationContr
 }
 
 extension NoteViewController: UITextViewDelegate{
-//    func textViewDidChange(_ textView: UITextView) {
-//        let size = CGSize(width: titleAndDescriptionContainerView.frame.width, height: .infinity)
-//        let estimatedSize = noteDescription.sizeThatFits(size)
-//        noteDescription.constraints.forEach{
-//            (constraint) in if constraint.firstAttribute == .height{
-//                constraint.constant = estimatedSize.height
-//            }
-//        }
-//        titleAndDescriptionContainerView.constraints.forEach{
-//            (constraint) in if constraint.firstAttribute == .height{
-//                constraint.constant = estimatedSize.height + noteTitle.frame.height
-//            }
-//        }
-//        entireScrollView.contentSize = CGSize(width: entireScrollView.frame.width, height: (imageScrollView.frame.height + titleAndDescriptionContainerView.frame.height + audioContainerView.frame.height))
-//    }
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
@@ -347,9 +361,7 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         setupRecorder()
     }
     @IBAction func startRecordAudioBtnClicked(_ sender: UIButton){
-//        for subview in self.audioRecorderControlUIView.subviews {
-//               subview.removeFromSuperview()
-//        }
+
         
         let recordingAudioAnimation = AnimationView()
         recordingAudioAnimation.frame = sender.superview!.bounds
@@ -368,12 +380,8 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     @IBAction func stopRecordAudioBtnClicked(_ sender: UITapGestureRecognizer){
         audioRecorder.stop()
-        print("------\(sender)-------")
-//        for subview in (sender.view as! UIView).superView! {
-//               subview.removeFromSuperview()
-//        }
-        //sender.superview!.addSubview(getRecordAudioBtn())
-        sender.view?.removeFromSuperview()
+        audioContainerScrollView.viewWithTag(TagConstants.recordAudioView)?.removeFromSuperview()
+        print(audioContainerScrollView.subviews.count)
     }
     
     func getRecordAudioBtn() -> UIButton{
@@ -407,37 +415,72 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     func getFIleURL() -> URL {
         audioCount += 1
-        let audioName = "\(noteID)_\(Date().getFormattedDate(format: "MMM_d_yyyy_h:mm a"))"
+        let audioName = "\(noteID)_\(Date().getFormattedDate(format: "MMM_d_yyyy_h:mm:ss Z a"))"
         let path = getCacheDirectory().appendingPathComponent("\(audioName).m4a")
-        //recordingsURLsToSave.append(String(describing: path))
         return path
     }
     
     
     func addRecorderdAudioPlayerUI(){
-        //audioRecorderControlUIView.removeFromSuperview()
-        
         let audioPlayerView = AudioPlayerView.loadViewFromNib()
         audioPlayerView.frame = CGRect(x: audioScrollXPosition, y: 0, width: 398, height: 50)
-        audioPlayerView.audioURL.text = recordingsURLsToSave.last
+        audioPlayerView.audioIndexIntTotalAudios.text = String(audiosIndexForSlider)
+        audiosIndexForSlider += 1
         audioPlayerView.audioSlider.minimumValue = Float(0.0)
         audioPlayerView.audioSlider.maximumValue = Float(10)
+        
         audioPlayerView.addTarget(forItem: "playAudio", target: self, action: #selector(self.playPauseAudioBtnCLicked), forControlEvents: .touchUpInside)
         audioPlayerView.addTarget(forItem: "deleteAudio", target: self, action: #selector(self.deleteAudioBtnCLicked), forControlEvents: .touchUpInside)
         audioPlayerView.addTarget(forItem: "audioSlider", target: self, action: #selector(self.changeAudioTime), forControlEvents: .valueChanged)
     
         audioScrollXPosition = audioScrollXPosition + audioPlayerView.frame.width + 10
         let frame1 = CGRect(x: audioScrollXPosition, y: 0, width: 50, height: audioContainerScrollView.frame.height )
-        //audioRecorderControlUIView.frame = frame1
-        
+        audioPlayerView.tag = TagConstants.recorderAudio
         audioContainerScrollView.addSubview(audioPlayerView)
         let newRecorderView = UIView(frame: frame1)
             newRecorderView.addSubview(getRecordAudioBtn())
+        newRecorderView.tag = TagConstants.recordAudioView
         audioContainerScrollView.addSubview(newRecorderView)
+        print(audioContainerScrollView.subviews.count)
         
         audioScrollViewContentWidth = audioPlayerView.frame.width + newRecorderView.frame.width + audioScrollViewContentWidth + 15
         audioContainerScrollView.contentSize = CGSize(width: audioScrollViewContentWidth, height: 50)
         audioScrollViewContentWidth -= newRecorderView.frame.width
+        setupRecorder()
+    }
+    
+    func addExistingAudiosUI(existingAudios: [Attachments]){
+        if existingAudios.count != 0 {
+            audioRecorderControlUIView.removeFromSuperview()
+            for audio in existingAudios{
+                let audioPlayerView = AudioPlayerView.loadViewFromNib()
+                    audioPlayerView.frame = CGRect(x: audioScrollXPosition, y: 0, width: 398, height: 50)
+                    audioPlayerView.audioSlider.minimumValue = Float(0.0)
+                    audioPlayerView.audioSlider.maximumValue = Float(10)
+                audioPlayerView.audioIndexIntTotalAudios.text = String(audiosIndexForSlider)
+                audiosIndexForSlider += 1
+                    audioPlayerView.addTarget(forItem: "playAudio", target: self, action: #selector(self.playPauseAudioBtnCLicked), forControlEvents: .touchUpInside)
+                    audioPlayerView.addTarget(forItem: "deleteAudio", target: self, action: #selector(self.deleteAudioBtnCLicked), forControlEvents: .touchUpInside)
+                    audioPlayerView.addTarget(forItem: "audioSlider", target: self, action: #selector(self.changeAudioTime), forControlEvents: .valueChanged)
+                
+                    audioScrollXPosition = audioScrollXPosition + audioPlayerView.frame.width + 10
+                    audioPlayerView.tag = TagConstants.savedAudio
+                    audioContainerScrollView.addSubview(audioPlayerView)
+                audioScrollViewContentWidth += 398
+                
+            }
+            let frame1 = CGRect(x: audioScrollXPosition, y: 0, width: 50, height: audioContainerScrollView.frame.height )
+            let newRecorderView = UIView(frame: frame1)
+                newRecorderView.addSubview(getRecordAudioBtn())
+            newRecorderView.tag = TagConstants.recordAudioView
+            audioContainerScrollView.addSubview(newRecorderView)
+            
+            audioScrollViewContentWidth = newRecorderView.frame.width + audioScrollViewContentWidth + 20
+            audioContainerScrollView.contentSize = CGSize(width: audioScrollViewContentWidth, height: 50)
+            audioScrollViewContentWidth -= newRecorderView.frame.width
+            setupRecorder()
+        }
+        
     }
     
     @objc func changeAudioTime(_ sender: AnyObject){
@@ -449,27 +492,26 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     @objc func playPauseAudioBtnCLicked(_ sender: UIButton){
         if sender.tag == 0{
             sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-            sender.tag = 1
-            if isPlaybackRunning{
-                audioPlayer.play()
+            let senderLable = getLabelFromAudioCOntrollerView(sender: sender)
+            if isPlaybackRunning && (senderLable.text != audioPlayer.url?.absoluteString){
+                isPlaybackRunning = false
+                audioPlayer.stop()
+                currentPlayPauseBtn.setImage(UIImage(systemName: "play.fill"), for: .normal)
+                currentPlayPauseBtn.tag = 0
+                currentAudioSlider.value = Float(0)
+                setupPlayerAndPlayAudio(sender: sender)
             }
             else{
-//                currentPlayPauseBtn.setImage(UIImage(systemName: "play.fill"), for: .normal)
-                
-                do{
-                    isPlaybackRunning = true
-                    currentPlayPauseBtn = getPlayPauseBtnFromAudioCOntrollerView(sender: sender)
-                    audioPlayer = try AVAudioPlayer(contentsOf: URL(string: getLabelFromAudioCOntrollerView(sender: sender).text!)!)
-                    audioPlayer.delegate = self
-                    currentAudioSlider = getSliderFromAudioCOntrollerView(sender: sender)
-                    currentAudioSlider.maximumValue = Float(audioPlayer.duration)
-                    var timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateSLider), userInfo: nil, repeats: true)
-                    audioPlayer.play()
-                }
-                catch{
-                    
-                }
+                if isPlaybackRunning{
+                                audioPlayer.play()
+                            }
+                            else{
+                    setupPlayerAndPlayAudio(sender: sender)
+                                
+                            }
             }
+            
+            sender.tag = 1
         }
         else{
             sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
@@ -480,6 +522,31 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     @objc func deleteAudioBtnCLicked(_ sender: UIButton){
         print("delete")
+    }
+    
+    func setupPlayerAndPlayAudio(sender: AnyObject){
+        do{
+            let senderLable = getLabelFromAudioCOntrollerView(sender: sender)
+            currentPlayPauseBtn = getPlayPauseBtnFromAudioCOntrollerView(sender: sender)
+            let index = Int(getLabelFromAudioCOntrollerView(sender: sender).text!)
+            if (sender.superview as! AudioPlayerView).tag == TagConstants.recorderAudio{
+                
+                audioPlayer = try AVAudioPlayer(data: totalRecordingsData[index!])
+            }
+            else{
+                audioPlayer = try AVAudioPlayer(data: totalRecordingsData[index!])
+            }
+            audioPlayer.delegate = self
+            currentAudioSlider = getSliderFromAudioCOntrollerView(sender: sender)
+            currentAudioSlider.maximumValue = Float(audioPlayer.duration)
+            var timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateSLider), userInfo: nil, repeats: true)
+            audioPlayer.play()
+            isPlaybackRunning = true
+        }
+        catch{
+            print(error.localizedDescription)
+        }
+
     }
 
     func getSliderFromAudioCOntrollerView(sender: AnyObject) -> UISlider{
@@ -495,6 +562,7 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     }
     
     func getLabelFromAudioCOntrollerView(sender: AnyObject) -> UILabel{
+        print(sender.superview?.subviews.count)
         return sender.superview?.subviews.first(where: {$0 is UILabel}) as! UILabel
     }
     
@@ -504,8 +572,12 @@ extension NoteViewController: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        print(recorder.url)
-        recordingsURLsToSave.append(String(describing: recorder.url))
+        if FileManager.default.fileExists(atPath: recorder.url.path){
+            if let cert = NSData(contentsOfFile: recorder.url.path) {
+                recordingsDataToSave.append(cert as Data)
+                totalRecordingsData.append(cert as Data)
+            }
+        }
         addRecorderdAudioPlayerUI()
         
     }

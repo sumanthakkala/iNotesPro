@@ -12,4 +12,8 @@ class TagConstants{
     static let addImageBtn = 1
     static let savedImage = 2
     static let pickedImage = 3
+    static let savedAudio = 4
+    static let recorderAudio = 5
+    static let recordAudioView = 99
+    
 }

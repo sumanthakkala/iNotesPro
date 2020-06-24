@@ -61,6 +61,10 @@ class NotesTableViewTableViewController: UITableViewController {
                 } catch{
                     
                 }
+        for note in currentNotesDataSource{
+                print(note.audioAttachmentsArray.count)
+            
+        }
     }
 
     // MARK: - Table view data source
@@ -88,7 +92,7 @@ class NotesTableViewTableViewController: UITableViewController {
 //            self.clickedInfoButtonIndex = indexPath.row
 //        }
         cell.infoButton.tag = indexPath.row
-
+        
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -171,6 +175,7 @@ class NotesTableViewTableViewController: UITableViewController {
             let indexInOriginalDataSource = originalSortedNotesDataSource.firstIndex(of: clickedNote!)
             currentNotesDataSource = originalSortedNotesDataSource
             currentNotesDataSource[indexInOriginalDataSource!] = data!["data"] as! Note
+            print(currentNotesDataSource[indexInOriginalDataSource!].audioAttachmentsArray.count)
             //currentNotesDataSource[data!["index"] as! Int] = data!["data"] as! Note
             self.tableView.reloadData()
         case NotificationConstants.iNotesTabBarItemTapped:

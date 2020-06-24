@@ -2,7 +2,7 @@
 //  Note+CoreDataProperties.swift
 //  iNotesPro
 //
-//  Created by Nirmal Sumanth on 22/06/20.
+//  Created by Nirmal Sumanth on 23/06/20.
 //  Copyright © 2020 Nirmal Sumanth. All rights reserved.
 //
 //
@@ -35,7 +35,7 @@ extension Note {
     }
     
     public var audioAttachmentsArray: [AudioAttachments] {
-        let set = attachments as? Set<AudioAttachments> ?? []
+        let set = audioAttachments as? Set<AudioAttachments> ?? []
         return set.sorted{
             $0.createdAt!.compare($1.createdAt!) == .orderedAscending
         }
