@@ -26,16 +26,14 @@ class InfoPopoverViewController: UIViewController {
         // Do any additional setup after loading the view.
         let coordinatesArray = note!.location!.components(separatedBy: " ")
         let lat = Double(coordinatesArray[0])
-        let lon = Double(coordinatesArray[0])
+        let lon = Double(coordinatesArray[1])
         let coordinate = CLLocationCoordinate2D(latitude:lat!
                                 , longitude:lon!)
-        
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         map.setRegion(map.regionThatFits(region), animated: true)
 
         let myPin: MKPointAnnotation = MKPointAnnotation()
         myPin.coordinate = coordinate
-        //tappedLocations.append(touchMapCoordinate)
         myPin.title = ""
         map.addAnnotation(myPin)
         setupAnimations()

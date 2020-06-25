@@ -132,15 +132,11 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, CALayerDe
     }
     func setupLocationManager(){
         self.locationManager.requestAlwaysAuthorization()
-
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
-
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.requestLocation()
-        }
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestLocation()
         noteDescription.text = "Take a note..."
         noteDescription.textColor = UIColor.lightGray
     }
@@ -276,7 +272,7 @@ class NoteViewController: UIViewController, CLLocationManagerDelegate, CALayerDe
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        guard let locValue: CLLocationCoordinate2D = locations.last?.coordinate else { return }
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         self.locationString = "\(locValue.latitude) \(locValue.longitude)"
     }

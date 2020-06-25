@@ -70,15 +70,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Location data is linked with the note meta data.</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Location data is linked with the note meta data.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Location data is linked with the note meta data.</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Microphone is used to record audio and attach it to notes.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Camera is used to capture image and attach it to notes.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location data is linked with the note meta data.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location data is linked with the note meta data.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location data is linked with the note meta data.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone is used to record audio and attach it to notes.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera is used to capture image and attach it to notes.</string>
 </dict>
 </plist>
